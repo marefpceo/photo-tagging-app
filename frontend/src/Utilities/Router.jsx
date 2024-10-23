@@ -6,9 +6,9 @@ function Router() {
     {
       path: '/',
       element: <App />,
-    }
+    },
   ]);
-  return <RouterProvider router={router} />
+  return <RouterProvider router={router} />;
 }
 
 export default Router;
