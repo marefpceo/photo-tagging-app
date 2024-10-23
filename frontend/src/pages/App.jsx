@@ -1,9 +1,9 @@
-import './App.css';
+import Header from '../sections/Header';
 
 function App() {
   return (
     <>
-      <h1>Where&apos;s Waldo: Photo Tagging App</h1>
+      <Header />
     </>
   );
 }
