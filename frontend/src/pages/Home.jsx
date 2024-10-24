@@ -16,7 +16,7 @@ function Home() {
           Select the which character you have found from the menu &#40;
           <em>if applicable</em>&#41;.
         </p>
-        <Link to={'/game'}>
+        <Link to={'/menu'}>
           <Button
             type={'button'}
             id={'playBtn'}
