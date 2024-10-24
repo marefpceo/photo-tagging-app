@@ -1,18 +1,26 @@
 import { useState } from 'react';
-import beach from '../assets/images/beach_waldo.jpeg';
-import store from '../assets/images/department_store_waldo.jpg';
-import mountain from '../assets/images/snow_mountain_waldo.jpeg';
+import MenuCard from '../components/MenuCard';
+import { imageList } from '../Utilities/helper';
 
 function GameMenu() {
-  const imageList = [beach, store, mountain];
-  const [gameImages, setGameImages] = useState([imageList]);
+  const [gameImages, setGameImages] = useState(imageList);
 
   return (
-    <section className='flex h-full flex-col justify-center'>
+    <section className='flex h-full flex-col justify-center gap-16'>
       <div className='flex flex-col justify-center'>
         <h2>Make a selection below:</h2>
       </div>
-      <div></div>
+
+      <div className='flex justify-evenly'>
+        {gameImages.map((image) => (
+          <MenuCard
+            key={image.id}
+            id={image.id}
+            imgSrc={image.imgSrc}
+            title={image.title}
+          />
+        ))}
+      </div>
     </section>
   );
 }
