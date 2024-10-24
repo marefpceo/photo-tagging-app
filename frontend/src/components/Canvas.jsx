@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
 function Canvas({ imgSrc }) {
   const canvasRef = useRef(null);
@@ -15,12 +16,16 @@ function Canvas({ imgSrc }) {
     };
   }, [imgSrc]);
   return (
-    <canvas
-      className='h-full w-full'
-      ref={canvasRef}
-      width={parent.innerWidth}
-      height={parent.innerHeight}
-    />
+    <TransformWrapper initialScale={1}>
+      <TransformComponent>
+        <canvas
+          className='h-full w-full'
+          ref={canvasRef}
+          width={1800}
+          height={1080}
+        />
+      </TransformComponent>
+    </TransformWrapper>
   );
 }
 
