@@ -5,9 +5,7 @@ function App() {
   return (
     <>
       <Header />
-      <section className='flex flex-1 flex-col items-center justify-center'>
-        <Outlet />
-      </section>
+      <Outlet />
     </>
   );
 }
