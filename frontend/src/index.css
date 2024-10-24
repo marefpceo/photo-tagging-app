@@ -21,6 +21,8 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  background: linear-gradient(90deg, #23a6d535, #23d5ab35);
+  background-size: auto;
 }
 
 button:active {
