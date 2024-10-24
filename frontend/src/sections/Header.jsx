@@ -9,7 +9,7 @@ function Header() {
         id={'leaderBoardBtn'}
         text={'Leader Board'}
         className={
-          'h-10 w-32 rounded-md bg-sky-500 p-1 shadow-md shadow-slate-400'
+          'h-10 w-32 rounded-md bg-sky-500 p-1 font-bold text-white shadow-md shadow-slate-400'
         }
       />
     </header>

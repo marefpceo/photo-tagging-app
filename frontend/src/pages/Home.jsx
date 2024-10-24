@@ -3,8 +3,8 @@ import Button from '../components/Button';
 function Home() {
   return (
     <>
-      <div className='min-w-64 rounded-sm border p-4 shadow-lg shadow-slate-400'>
-        <h2>How To Play</h2>
+      <div className='min-w-64 rounded-md border border-slate-400 bg-white p-4 shadow-lg shadow-slate-400'>
+        <h2 className='font-bold'>How To Play</h2>
         <p className='mt-3 text-sm'>
           Select a game image to start.
           <br />
@@ -19,7 +19,9 @@ function Home() {
           type={'button'}
           id={'playBtn'}
           text={'Play'}
-          className={'mt-10 h-9 w-24 rounded-md bg-green-600'}
+          className={
+            'mt-10 h-9 w-24 rounded-md bg-red-600 text-lg font-bold text-white shadow-md shadow-slate-400'
+          }
         />
       </div>
     </>
