@@ -15,14 +15,23 @@ function Canvas({ imgSrc }) {
       context.drawImage(image, 0, 0, canvas.width, canvas.height);
     };
   }, [imgSrc]);
+
+  function handleClick(e) {
+    const transform = getComputedStyle(canvasRef.current);
+    e.preventDefault();
+    console.log(e.clientX + ',' + e.clientY);
+    console.log(transform);
+  }
+
   return (
     <TransformWrapper initialScale={1}>
       <TransformComponent>
         <canvas
           className='h-full w-full'
           ref={canvasRef}
-          width={1800}
-          height={1080}
+          width={2000}
+          height={1200}
+          onClick={handleClick}
         />
       </TransformComponent>
     </TransformWrapper>
