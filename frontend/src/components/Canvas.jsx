@@ -19,18 +19,14 @@ function Canvas({ imgSrc }) {
 
   function handleClick(e) {
     const rect = canvasRef.current.getBoundingClientRect();
-    const imgOffsetCoordinates = {
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    };
     e.preventDefault();
     const imgCoordinates = {
-      x: imgOffsetCoordinates.x * scale,
-      y: imgOffsetCoordinates.y * scale,
+      x: (e.clientX - rect.left) * scale,
+      y: (e.clientY - rect.top) * scale,
     };
     console.log(imgCoordinates);
     console.log(rect);
-    setScale(1);
+    console.log(scale);
   }
 
   return (
@@ -41,15 +37,15 @@ function Canvas({ imgSrc }) {
         scale < 0 ? setScale(1) : setScale(1 / ref.state.scale);
       }}
       onPanning={(ref) => {
-        setScale(1 / ref.state.positionX);
+        scale < 0 ? setScale(1) : setScale(1 / ref.state.scale);
       }}
     >
       <TransformComponent>
         <canvas
           className='h-full w-full'
           ref={canvasRef}
-          width={2000}
-          height={1200}
+          width={3000}
+          height={1700}
           onClick={handleClick}
         />
       </TransformComponent>
