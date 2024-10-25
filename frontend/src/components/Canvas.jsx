@@ -1,8 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
 function Canvas({ imgSrc }) {
   const canvasRef = useRef(null);
+  const [scale, setScale] = useState(1);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -17,14 +18,32 @@ function Canvas({ imgSrc }) {
   }, [imgSrc]);
 
   function handleClick(e) {
-    const transform = getComputedStyle(canvasRef.current);
+    const rect = canvasRef.current.getBoundingClientRect();
+    const imgOffsetCoordinates = {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    };
     e.preventDefault();
-    console.log(e.clientX + ',' + e.clientY);
-    console.log(transform);
+    const imgCoordinates = {
+      x: imgOffsetCoordinates.x * scale,
+      y: imgOffsetCoordinates.y * scale,
+    };
+    console.log(imgCoordinates);
+    console.log(rect);
+    setScale(1);
   }
 
   return (
-    <TransformWrapper initialScale={1}>
+    <TransformWrapper
+      initialScale={1}
+      maxScale={3}
+      onZoom={(ref) => {
+        scale < 0 ? setScale(1) : setScale(1 / ref.state.scale);
+      }}
+      onPanning={(ref) => {
+        setScale(1 / ref.state.positionX);
+      }}
+    >
       <TransformComponent>
         <canvas
           className='h-full w-full'
