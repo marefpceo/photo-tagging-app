@@ -24,9 +24,8 @@ function Canvas({ imgSrc }) {
       x: (e.clientX - rect.left) * scale,
       y: (e.clientY - rect.top) * scale,
     };
-    console.log(imgCoordinates);
-    console.log(rect);
-    console.log(scale);
+    console.log(imgCoordinates); // onClick coordinates accouting for zoom and panned
+    console.log(rect); // canvas bounding data
   }
 
   return (
