@@ -7,6 +7,16 @@ export const imageList = [
     id: 'img-1',
     imgSrc: beach,
     title: 'Beach ',
+    characters: [
+      {
+        characterId: 'char-1',
+        name: 'Waldo',
+      },
+      {
+        characterId: 'char-2',
+        name: 'Odlaw',
+      },
+    ],
   },
   {
     id: 'img-2',

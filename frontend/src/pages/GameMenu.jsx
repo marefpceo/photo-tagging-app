@@ -18,6 +18,7 @@ function GameMenu() {
             id={image.id}
             imgSrc={image.imgSrc}
             title={image.title}
+            characters={image.characters}
           />
         ))}
       </div>
