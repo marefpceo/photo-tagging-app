@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
-function Canvas({ imgSrc, setClickPosition }) {
+function Canvas({ imgSrc, setClickPosition, toggleMenu }) {
   const canvasRef = useRef(null);
   const [scale, setScale] = useState(1);
 
@@ -20,6 +20,7 @@ function Canvas({ imgSrc, setClickPosition }) {
   function handleClick(e) {
     const rect = canvasRef.current.getBoundingClientRect();
     e.preventDefault();
+    toggleMenu();
     const imgCoordinates = {
       x: (e.clientX - rect.left) * scale,
       y: (e.clientY - rect.top) * scale,
