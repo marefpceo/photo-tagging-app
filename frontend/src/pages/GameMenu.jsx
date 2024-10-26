@@ -3,6 +3,7 @@ import MenuCard from '../components/MenuCard';
 import { imageList } from '../Utilities/helper';
 
 function GameMenu() {
+  // eslint-disable-next-line no-unused-vars
   const [gameImages, setGameImages] = useState(imageList);
 
   return (

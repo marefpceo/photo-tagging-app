@@ -7,6 +7,7 @@ function GameBoard() {
   const { state } = useLocation();
   const [clickPosition, setClickPostion] = useState({ x: 0, y: 0 });
   const [showMenu, setShowMenu] = useState('none');
+  const [character, setCharacter] = useState();
 
   function toggleMenu() {
     if (showMenu === 'none') {
@@ -30,6 +31,7 @@ function GameBoard() {
         characters={state.characters}
         position={clickPosition}
         showMenu={showMenu}
+        handleClick={setCharacter}
       />
     </section>
   );

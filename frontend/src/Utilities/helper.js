@@ -22,10 +22,30 @@ export const imageList = [
     id: 'img-2',
     imgSrc: store,
     title: 'Department Store',
+    characters: [
+      {
+        characterId: 'char-1',
+        name: 'Waldo',
+      },
+      {
+        characterId: 'char-2',
+        name: 'Odlaw',
+      },
+    ],
   },
   {
     id: 'img-3',
     imgSrc: mountain,
     title: 'Snow Mountain',
+    characters: [
+      {
+        characterId: 'char-1',
+        name: 'Waldo',
+      },
+      {
+        characterId: 'char-2',
+        name: 'Odlaw',
+      },
+    ],
   },
 ];
