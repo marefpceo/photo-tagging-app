@@ -26,7 +26,10 @@ function Canvas({ imgSrc, setClickPosition }) {
     };
     console.log(imgCoordinates); // onClick coordinates accouting for zoom and panned
     console.log(rect); // canvas bounding data
-    setClickPosition(imgCoordinates);
+    setClickPosition({
+      x: imgCoordinates.x + rect.x,
+      y: imgCoordinates.y + rect.y,
+    });
   }
 
   return (
