@@ -1,12 +1,15 @@
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import Canvas from '../components/Canvas';
 import DropMenu from '../components/DropMenu';
+import Button from '../components/Button';
+import DialogModal from '../components/DialogModal';
 
 function GameBoard() {
   const { state } = useLocation();
   const [clickPosition, setClickPostion] = useState({ x: 0, y: 0 });
   const [showMenu, setShowMenu] = useState('none');
+  const [showDialogModal, setShowDialogModal] = useState();
   const [character, setCharacter] = useState();
 
   function toggleMenu() {
@@ -18,9 +21,30 @@ function GameBoard() {
   }
 
   return (
-    <section className='grid h-full grid-rows-[10%_90%]'>
-      <div className='flex flex-col justify-center'>
+    <section className='relative grid h-full grid-rows-[10%_90%]'>
+      <div className='flex items-center justify-between'>
+        <div>icons</div>
         <p>Game board</p>
+        <div className='flex gap-2'>
+          <Button
+            type={'button'}
+            id={'rulesBtn'}
+            text={'Rules'}
+            className={
+              'h-8 w-14 rounded-full bg-green-400 font-bold text-white shadow-md'
+            }
+          />
+          <Link to={'/menu'}>
+            <Button
+              type={'button'}
+              id={'quitBtn'}
+              text={'Quit'}
+              className={
+                'h-8 w-14 rounded-full bg-red-500 font-bold text-white shadow-md'
+              }
+            />
+          </Link>
+        </div>
       </div>
       <Canvas
         imgSrc={state.imgSrc}
@@ -33,6 +57,7 @@ function GameBoard() {
         showMenu={showMenu}
         handleClick={setCharacter}
       />
+      <DialogModal message={'Are you sure you want to quit?'} />
     </section>
   );
 }
