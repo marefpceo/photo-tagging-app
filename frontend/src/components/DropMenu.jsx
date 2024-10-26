@@ -1,9 +1,8 @@
 function DropMenu({ characters, position, showMenu }) {
-  console.log(position);
   return (
     <ul
-      className='absolute z-40 m-0 cursor-pointer rounded-md bg-white p-0'
-      style={{ top: position.y - 5, left: position.x + 10, display: showMenu }}
+      className='absolute z-30 m-0 cursor-pointer rounded-md bg-white p-0'
+      style={{ top: position.y, left: position.x, display: showMenu }}
     >
       {characters.map((character) => (
         <li

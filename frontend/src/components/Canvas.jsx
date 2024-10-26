@@ -20,7 +20,6 @@ function Canvas({ imgSrc, setClickPosition, toggleMenu }) {
   function handleClick(e) {
     const rect = canvasRef.current.getBoundingClientRect();
     e.preventDefault();
-    toggleMenu();
     const imgCoordinates = {
       x: (e.clientX - rect.left) * scale,
       y: (e.clientY - rect.top) * scale,
@@ -28,16 +27,17 @@ function Canvas({ imgSrc, setClickPosition, toggleMenu }) {
     console.log(imgCoordinates); // onClick coordinates accouting for zoom and panned
     console.log(rect); // canvas bounding data
     setClickPosition({
-      x: imgCoordinates.x + rect.x,
-      y: imgCoordinates.y + rect.y,
+      x: rect.x < 0 ? imgCoordinates.x + 100 : imgCoordinates.x + rect.x + 15,
+      y: rect.y < 0 ? imgCoordinates.y + 100 : imgCoordinates.y + rect.y,
     });
+    toggleMenu();
   }
 
   return (
     <>
       <TransformWrapper
         initialScale={1}
-        maxScale={3}
+        maxScale={2}
         onZoom={(ref) => {
           scale < 0 ? setScale(1) : setScale(1 / ref.state.scale);
         }}

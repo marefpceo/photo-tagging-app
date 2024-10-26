@@ -5,10 +5,8 @@ import DropMenu from '../components/DropMenu';
 
 function GameBoard() {
   const { state } = useLocation();
-  const [clickPosition, setClickPostion] = useState({});
+  const [clickPosition, setClickPostion] = useState({ x: 0, y: 0 });
   const [showMenu, setShowMenu] = useState('none');
-
-  console.log(clickPosition);
 
   function toggleMenu() {
     if (showMenu === 'none') {
