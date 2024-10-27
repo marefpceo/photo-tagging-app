@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Canvas from '../components/Canvas';
 import DropMenu from '../components/DropMenu';
 import Button from '../components/Button';
@@ -9,7 +9,7 @@ function GameBoard() {
   const { state } = useLocation();
   const [clickPosition, setClickPostion] = useState({ x: 0, y: 0 });
   const [showMenu, setShowMenu] = useState('none');
-  const [showDialogModal, setShowDialogModal] = useState();
+  const [showDialogModal, setShowDialogModal] = useState(false);
   const [character, setCharacter] = useState();
 
   function toggleMenu() {
@@ -17,6 +17,14 @@ function GameBoard() {
       setShowMenu('block');
     } else {
       setShowMenu('none');
+    }
+  }
+
+  function toggleDialogModal() {
+    if (showDialogModal === false) {
+      setShowDialogModal(true);
+    } else {
+      setShowDialogModal(false);
     }
   }
 
@@ -34,16 +42,15 @@ function GameBoard() {
               'h-8 w-14 rounded-full bg-green-400 font-bold text-white shadow-md'
             }
           />
-          <Link to={'/menu'}>
-            <Button
-              type={'button'}
-              id={'quitBtn'}
-              text={'Quit'}
-              className={
-                'h-8 w-14 rounded-full bg-red-500 font-bold text-white shadow-md'
-              }
-            />
-          </Link>
+          <Button
+            type={'button'}
+            id={'quitBtn'}
+            text={'Quit'}
+            className={
+              'h-8 w-14 rounded-full bg-red-500 font-bold text-white shadow-md'
+            }
+            onClick={toggleDialogModal}
+          />
         </div>
       </div>
       <Canvas
@@ -57,7 +64,11 @@ function GameBoard() {
         showMenu={showMenu}
         handleClick={setCharacter}
       />
-      <DialogModal message={'Are you sure you want to quit?'} />
+      <DialogModal
+        message={'Are you sure you want to quit?'}
+        showDialogModal={showDialogModal}
+        toggleDialogModal={toggleDialogModal}
+      />
     </section>
   );
 }
