@@ -4,6 +4,7 @@ import Canvas from '../components/Canvas';
 import DropMenu from '../components/DropMenu';
 import Button from '../components/Button';
 import DialogModal from '../components/DialogModal';
+import RulesModal from '../components/RulesModal';
 
 function GameBoard() {
   const { state } = useLocation();
