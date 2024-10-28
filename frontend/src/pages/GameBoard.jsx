@@ -84,6 +84,7 @@ function GameBoard() {
         linkTo={''}
         onClick={toggleRulesModal}
         isDisplaySet={showRulesModal}
+        heightWidth={'h-full w-full'}
       />
     </section>
   );

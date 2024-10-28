@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import Button from './Button';
 
-function RulesModal({ linkTo, onClick, isDisplaySet }) {
+function RulesModal({ linkTo, onClick, isDisplaySet, heightWidth }) {
   return (
     <div
-      className='absolute z-40 row-span-2 mt-2 h-fit w-fit flex-col justify-center bg-gray-200 bg-opacity-85'
+      className={`absolute z-40 row-span-2 mt-2 ${heightWidth} flex-col justify-center bg-gray-200 bg-opacity-85`}
       style={{ display: isDisplaySet === true ? 'flex' : 'none' }}
     >
-      <div className='min-w-64 rounded-md border border-slate-400 bg-white p-4 shadow-lg shadow-slate-400'>
+      <div className='relative mx-auto h-fit w-fit rounded-md border border-slate-400 bg-white p-4 shadow-lg shadow-slate-400'>
         <h2 className='font-bold'>How To Play</h2>
         <p className='mt-3 text-sm'>
           Select a game image to start.
