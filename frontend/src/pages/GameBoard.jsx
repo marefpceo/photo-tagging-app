@@ -11,6 +11,7 @@ function GameBoard() {
   const [clickPosition, setClickPostion] = useState({ x: 0, y: 0 });
   const [showMenu, setShowMenu] = useState('none');
   const [showDialogModal, setShowDialogModal] = useState(false);
+  const [showRulesModal, setShowRulesModal] = useState(false);
   const [character, setCharacter] = useState();
 
   function toggleMenu() {
@@ -18,6 +19,14 @@ function GameBoard() {
       setShowMenu('block');
     } else {
       setShowMenu('none');
+    }
+  }
+
+  function toggleRulesModal() {
+    if (showRulesModal === false) {
+      setShowRulesModal(true);
+    } else {
+      setShowRulesModal(false);
     }
   }
 
@@ -42,6 +51,7 @@ function GameBoard() {
             className={
               'h-8 w-14 rounded-full bg-green-400 font-bold text-white shadow-md'
             }
+            onClick={toggleRulesModal}
           />
           <Button
             type={'button'}
@@ -69,6 +79,11 @@ function GameBoard() {
         message={'Are you sure you want to quit?'}
         showDialogModal={showDialogModal}
         toggleDialogModal={toggleDialogModal}
+      />
+      <RulesModal
+        linkTo={''}
+        onClick={toggleRulesModal}
+        isDisplaySet={showRulesModal}
       />
     </section>
   );

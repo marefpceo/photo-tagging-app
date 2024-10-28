@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import Button from './Button';
 
-function RulesModal() {
+function RulesModal({ linkTo, onClick, isDisplaySet }) {
   return (
     <div
       className='absolute z-40 row-span-2 mt-2 h-fit w-fit flex-col justify-center bg-gray-200 bg-opacity-85'
-      style={{ display: 'flex' }}
+      style={{ display: isDisplaySet === true ? 'flex' : 'none' }}
     >
       <div className='min-w-64 rounded-md border border-slate-400 bg-white p-4 shadow-lg shadow-slate-400'>
         <h2 className='font-bold'>How To Play</h2>
@@ -19,7 +19,7 @@ function RulesModal() {
           Select the which character you have found from the menu &#40;
           <em>if applicable</em>&#41;.
         </p>
-        <Link to={'/menu'}>
+        {linkTo === '' ? (
           <Button
             type={'button'}
             id={'playBtn'}
@@ -27,8 +27,20 @@ function RulesModal() {
             className={
               'mt-10 h-9 w-24 rounded-md bg-red-600 text-lg font-bold text-white shadow-md shadow-slate-400'
             }
+            onClick={onClick}
           />
-        </Link>
+        ) : (
+          <Link to={linkTo}>
+            <Button
+              type={'button'}
+              id={'playBtn'}
+              text={'Play'}
+              className={
+                'mt-10 h-9 w-24 rounded-md bg-red-600 text-lg font-bold text-white shadow-md shadow-slate-400'
+              }
+            />
+          </Link>
+        )}
       </div>
     </div>
   );
