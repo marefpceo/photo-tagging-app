@@ -8,7 +8,7 @@ import RulesModal from '../components/RulesModal';
 
 function GameBoard() {
   const { state } = useLocation();
-  const [clickPosition, setClickPostion] = useState({ x: 0, y: 0 });
+  const [clickPosition, setClickPostion] = useState({});
   const [showMenu, setShowMenu] = useState('none');
   const [showDialogModal, setShowDialogModal] = useState(false);
   const [showRulesModal, setShowRulesModal] = useState(false);
@@ -17,6 +17,7 @@ function GameBoard() {
   function toggleMenu() {
     if (showMenu === 'none') {
       setShowMenu('block');
+      console.log(clickPosition);
     } else {
       setShowMenu('none');
     }

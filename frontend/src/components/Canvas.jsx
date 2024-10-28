@@ -26,11 +26,8 @@ function Canvas({ imgSrc, setClickPosition, toggleMenu }) {
     };
     console.log(imgCoordinates); // onClick coordinates accouting for zoom and panned
     console.log(rect); // canvas bounding data
-    setClickPosition({
-      x: rect.x < 0 ? imgCoordinates.x + 100 : imgCoordinates.x + rect.x + 15,
-      y: rect.y < 0 ? imgCoordinates.y + 100 : imgCoordinates.y + rect.y,
-    });
-    toggleMenu();
+    setClickPosition(imgCoordinates);
+    setTimeout(toggleMenu(), 500);
   }
 
   return (
