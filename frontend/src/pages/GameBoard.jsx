@@ -5,6 +5,7 @@ import DropMenu from '../components/DropMenu';
 import Button from '../components/Button';
 import DialogModal from '../components/DialogModal';
 import RulesModal from '../components/RulesModal';
+import CharacterIcons from '../components/CharacterIcons';
 
 function GameBoard() {
   const { state } = useLocation();
@@ -42,7 +43,7 @@ function GameBoard() {
   return (
     <section className='relative grid h-full grid-rows-[10%_90%]'>
       <div className='flex items-center justify-between'>
-        <div>icons</div>
+        <CharacterIcons characterList={state.characters} />
         <p>Game board</p>
         <div className='flex gap-2'>
           <Button

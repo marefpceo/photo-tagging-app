@@ -1,6 +1,8 @@
 import beach from '../assets/images/beach_waldo.jpeg';
 import store from '../assets/images/department_store_waldo.jpg';
 import mountain from '../assets/images/snow_mountain_waldo.jpeg';
+import waldo from '../assets/images/waldo.jpg';
+import odlaw from '../assets/images/odlaw.jpg';
 
 export const imageList = [
   {
@@ -11,10 +13,12 @@ export const imageList = [
       {
         characterId: 'char-1',
         name: 'Waldo',
+        icon: waldo,
       },
       {
         characterId: 'char-2',
         name: 'Odlaw',
+        icon: odlaw,
       },
     ],
   },
@@ -26,10 +30,12 @@ export const imageList = [
       {
         characterId: 'char-1',
         name: 'Waldo',
+        icon: waldo,
       },
       {
         characterId: 'char-2',
         name: 'Odlaw',
+        icon: odlaw,
       },
     ],
   },
@@ -41,10 +47,12 @@ export const imageList = [
       {
         characterId: 'char-1',
         name: 'Waldo',
+        icon: waldo,
       },
       {
         characterId: 'char-2',
         name: 'Odlaw',
+        icon: odlaw,
       },
     ],
   },
