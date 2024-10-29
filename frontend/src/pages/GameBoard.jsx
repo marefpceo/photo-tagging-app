@@ -18,9 +18,9 @@ function GameBoard() {
   function toggleMenu() {
     if (showMenu === 'none') {
       setShowMenu('block');
-      console.log(clickPosition);
     } else {
       setShowMenu('none');
+      setClickPostion({});
     }
   }
 
@@ -68,6 +68,7 @@ function GameBoard() {
       </div>
       <Canvas
         imgSrc={state.imgSrc}
+        clickPosition={clickPosition}
         setClickPosition={setClickPostion}
         toggleMenu={toggleMenu}
       />
