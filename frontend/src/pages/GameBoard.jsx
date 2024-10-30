@@ -10,6 +10,7 @@ import CharacterIcons from '../components/CharacterIcons';
 function GameBoard() {
   const { state } = useLocation();
   const [clickPosition, setClickPostion] = useState({});
+  const [target, setTarget] = useState({});
   const [showMenu, setShowMenu] = useState('none');
   const [showDialogModal, setShowDialogModal] = useState(false);
   const [showRulesModal, setShowRulesModal] = useState(false);
@@ -21,6 +22,7 @@ function GameBoard() {
     } else {
       setShowMenu('none');
       setClickPostion({});
+      setTarget({});
     }
   }
 
@@ -70,6 +72,8 @@ function GameBoard() {
         imgSrc={state.imgSrc}
         clickPosition={clickPosition}
         setClickPosition={setClickPostion}
+        target={target}
+        setTarget={setTarget}
         toggleMenu={toggleMenu}
       />
       <DropMenu
