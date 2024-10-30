@@ -6,7 +6,7 @@ function CharacterIcons({ characterList }) {
           key={character.characterId}
           src={character.icon}
           alt={character.name}
-          className='rounded-full'
+          className='rounded-full border-2 p-1'
           width={40}
         />
       ))}

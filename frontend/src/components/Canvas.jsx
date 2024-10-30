@@ -3,6 +3,8 @@ import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
 function Canvas({
   imgSrc,
+  width,
+  height,
   clickPosition,
   setClickPosition,
   target,
@@ -21,9 +23,9 @@ function Canvas({
     image.onload = () => {
       context.drawImage(image, 0, 0, canvas.width, canvas.height);
       context.strokeStyle = 'red';
-      context.lineWidth = 4;
+      context.lineWidth = 7;
       context.beginPath();
-      context.arc(target.x, target.y, 25, 0, 2 * Math.PI);
+      context.arc(target.x, target.y, 30, 0, 2 * Math.PI);
       context.stroke();
       context.closePath();
     };
@@ -67,8 +69,8 @@ function Canvas({
           <canvas
             className='h-full w-full'
             ref={canvasRef}
-            width={3000}
-            height={1700}
+            width={width}
+            height={height}
             onClick={handleClick}
           />
         </TransformComponent>

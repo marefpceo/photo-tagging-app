@@ -1,7 +1,7 @@
 import Button from './Button';
 import { Link } from 'react-router-dom';
 
-function MenuCard({ imgSrc, id, title, characters }) {
+function MenuCard({ imgSrc, id, title, width, height, characters }) {
   return (
     <div
       className='max-w-1/5 m-0 rounded-sm border border-slate-100 bg-slate-100 pb-4 shadow-md shadow-slate-500'
@@ -11,7 +11,16 @@ function MenuCard({ imgSrc, id, title, characters }) {
       <div>
         <img src={imgSrc} alt='' className='h-44 w-full' />
       </div>
-      <Link to={'/game'} state={{ imgSrc: imgSrc, characters: characters }}>
+      <Link
+        to={'/game'}
+        state={{
+          imgSrc: imgSrc,
+          title: title,
+          width: width,
+          height: height,
+          characters: characters,
+        }}
+      >
         <Button
           type={'button'}
           id={'menuCardBtn'}

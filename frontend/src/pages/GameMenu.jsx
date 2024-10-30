@@ -19,6 +19,8 @@ function GameMenu() {
             id={image.id}
             imgSrc={image.imgSrc}
             title={image.title}
+            width={image.width}
+            height={image.height}
             characters={image.characters}
           />
         ))}

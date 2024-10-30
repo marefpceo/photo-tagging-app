@@ -8,7 +8,9 @@ export const imageList = [
   {
     id: 'img-1',
     imgSrc: beach,
-    title: 'Beach ',
+    title: 'Beach',
+    width: 3000,
+    height: 1926,
     characters: [
       {
         characterId: 'char-1',
@@ -26,6 +28,8 @@ export const imageList = [
     id: 'img-2',
     imgSrc: store,
     title: 'Department Store',
+    width: 2800,
+    height: 1760,
     characters: [
       {
         characterId: 'char-1',
@@ -43,6 +47,8 @@ export const imageList = [
     id: 'img-3',
     imgSrc: mountain,
     title: 'Snow Mountain',
+    width: 3000,
+    height: 1902,
     characters: [
       {
         characterId: 'char-1',

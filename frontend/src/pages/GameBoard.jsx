@@ -70,6 +70,8 @@ function GameBoard() {
       </div>
       <Canvas
         imgSrc={state.imgSrc}
+        width={state.width}
+        height={state.height}
         clickPosition={clickPosition}
         setClickPosition={setClickPostion}
         target={target}
