@@ -46,7 +46,7 @@ function GameBoard() {
     <section className='relative grid h-full grid-rows-[10%_90%]'>
       <div className='flex items-center justify-between'>
         <CharacterIcons characterList={state.characters} />
-        <p>Game board</p>
+        <p>{state.title}</p>
         <div className='flex gap-2'>
           <Button
             type={'button'}

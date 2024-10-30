@@ -29,11 +29,6 @@ function Canvas({
       context.stroke();
       context.closePath();
     };
-
-    function drawShapes() {
-      // context.clearRect(0, 0, canvas.width, canvas.height);
-    }
-    drawShapes();
   }, [imgSrc, target, clickPosition]);
 
   function handleClick(e) {
