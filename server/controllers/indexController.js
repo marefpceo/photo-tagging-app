@@ -10,7 +10,26 @@ exports.image_list_get = asyncHandler(async (req, res, next) => {
       game_leaders: true,
     }
   });
+  
   res.json({
     image_list
+  });
+});
+
+
+// Return selected game image
+exports.game_image_get = asyncHandler(async (req, res, next) => {
+  const game_image = await prisma.game_image.findUnique({
+    where: {
+      id: parseInt(req.params.gameImageId),
+    },
+    include: {
+      characters: true,
+      game_leaders: true,
+    }
+  });
+
+  res.json({
+    game_image
   });
 });
