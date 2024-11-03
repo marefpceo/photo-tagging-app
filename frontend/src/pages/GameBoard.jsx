@@ -14,7 +14,11 @@ function GameBoard() {
   const [showMenu, setShowMenu] = useState('none');
   const [showDialogModal, setShowDialogModal] = useState(false);
   const [showRulesModal, setShowRulesModal] = useState(false);
-  const [character, setCharacter] = useState();
+  const [character, setCharacter] = useState({
+    characterId: 0,
+    xCoord: 0,
+    yCoord: 0,
+  });
 
   function toggleMenu() {
     if (showMenu === 'none') {
@@ -41,6 +45,8 @@ function GameBoard() {
       setShowDialogModal(false);
     }
   }
+
+  function verifyUserSelection() {}
 
   return (
     <section className='relative grid h-full grid-rows-[10%_90%]'>
@@ -82,7 +88,9 @@ function GameBoard() {
         characters={state.characters}
         position={clickPosition}
         showMenu={showMenu}
-        handleClick={setCharacter}
+        setCharacter={setCharacter}
+        target={target}
+        toggleMenu={toggleMenu}
       />
       <DialogModal
         message={'Are you sure you want to quit?'}

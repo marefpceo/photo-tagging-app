@@ -36,8 +36,8 @@ function Canvas({
     const rect = canvasRef.current.getBoundingClientRect();
     const canvas = canvasRef.current;
     const imgCoordinates = {
-      x: Math.floor((e.clientX - rect.left) * scale),
-      y: Math.floor((e.clientY - rect.top) * scale),
+      x: Math.floor((e.clientX - rect.left) * scale) + 100,
+      y: Math.floor((e.clientY - rect.top) * scale) + 100,
     };
     if (e.ctrlKey) {
       return;
