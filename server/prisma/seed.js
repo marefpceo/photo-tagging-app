@@ -6,7 +6,9 @@ async function main() {
     where: {
       id: 1,
     }, 
-    update: {},
+    update: {
+      icon_location: '/images/waldo.jpg'
+    },
     create: {
       character_name: 'Waldo',
       icon_location: 'images/waldo.jpg',
@@ -20,7 +22,9 @@ async function main() {
     where: {
       id: 2,
     },
-    update: {},
+    update: {
+      icon_location: '/images/odlaw.jpg'
+    },
     create: {
       character_name: 'Odlaw',
       icon_location: 'images/odlaw.jpg',
@@ -34,7 +38,9 @@ async function main() {
     where: {
       id: 1,
     },
-    update: {},
+    update: {
+      image_location: '/images/beach_waldo.jpeg'
+    },
     create: {
       image_location: 'images/beach_waldo.jpeg',
       title: 'Beach',

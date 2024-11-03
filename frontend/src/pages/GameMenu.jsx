@@ -1,10 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import MenuCard from '../components/MenuCard';
-import { imageList } from '../Utilities/helper';
+// import { imageList } from '../Utilities/helper';
 
 function GameMenu() {
-  // eslint-disable-next-line no-unused-vars
-  const [gameImages, setGameImages] = useState(imageList);
+  const [gameImages, setGameImages] = useState([]);
+
+  useEffect(() => {
+    async function getImageList() {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL}/image_list`,
+        );
+
+        let responseData = await response.json();
+        setGameImages(responseData.image_list);
+        console.log(responseData);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getImageList();
+  }, []);
 
   return (
     <section className='flex h-full flex-col justify-center gap-16'>
@@ -17,7 +33,7 @@ function GameMenu() {
           <MenuCard
             key={image.id}
             id={image.id}
-            imgSrc={image.imgSrc}
+            imgSrc={image.image_location}
             title={image.title}
             width={image.width}
             height={image.height}

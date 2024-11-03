@@ -9,12 +9,16 @@ function MenuCard({ imgSrc, id, title, width, height, characters }) {
     >
       <h3 className='p-2'>{title}</h3>
       <div>
-        <img src={imgSrc} alt='' className='h-44 w-full' />
+        <img
+          src={`${import.meta.env.VITE_API_BASE_URL}${imgSrc}`}
+          alt=''
+          className='h-44 w-full'
+        />
       </div>
       <Link
         to={'/game'}
         state={{
-          imgSrc: imgSrc,
+          image_location: imgSrc,
           title: title,
           width: width,
           height: height,
