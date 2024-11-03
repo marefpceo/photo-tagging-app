@@ -6,10 +6,10 @@ function DropMenu({ characters, position, showMenu, handleClick }) {
     >
       {characters.map((character) => (
         <li
-          key={character.characterId}
+          key={character.id}
           className='m-0 border px-2 py-1 text-sm hover:bg-slate-300'
           onClick={() => {
-            handleClick(character.characterId);
+            handleClick(character.id);
           }}
         >
           {character.name}

@@ -33,7 +33,7 @@ function GameMenu() {
           <MenuCard
             key={image.id}
             id={image.id}
-            imgSrc={image.image_location}
+            image_location={image.image_location}
             title={image.title}
             width={image.width}
             height={image.height}

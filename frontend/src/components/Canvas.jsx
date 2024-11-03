@@ -18,7 +18,7 @@ function Canvas({
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
     const image = new Image();
-    image.src = imgSrc;
+    image.src = `${import.meta.env.VITE_API_BASE_URL}` + imgSrc;
 
     image.onload = () => {
       context.drawImage(image, 0, 0, canvas.width, canvas.height);
