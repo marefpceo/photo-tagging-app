@@ -39,12 +39,16 @@ function Canvas({
       x: Math.floor((e.clientX - rect.left) * scale),
       y: Math.floor((e.clientY - rect.top) * scale),
     };
-    setClickPosition(imgCoordinates);
-    setTarget({
-      x: Math.floor(((e.clientX - rect.left) / rect.width) * canvas.width),
-      y: Math.floor(((e.clientY - rect.top) / rect.height) * canvas.height),
-    });
-    setTimeout(toggleMenu(), 500);
+    if (e.ctrlKey) {
+      return;
+    } else {
+      setClickPosition(imgCoordinates);
+      setTarget({
+        x: Math.floor(((e.clientX - rect.left) / rect.width) * canvas.width),
+        y: Math.floor(((e.clientY - rect.top) / rect.height) * canvas.height),
+      });
+      setTimeout(toggleMenu(), 500);
+    }
   }
 
   return (
@@ -59,6 +63,7 @@ function Canvas({
           setScale(1 / ref.state.scale);
         }}
         disablePadding={true}
+        panning={{ activationKeys: ['Control'] }}
       >
         <TransformComponent>
           <canvas

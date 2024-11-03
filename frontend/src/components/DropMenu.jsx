@@ -12,7 +12,7 @@ function DropMenu({ characters, position, showMenu, handleClick }) {
             handleClick(character.id);
           }}
         >
-          {character.name}
+          {character.character_name}
         </li>
       ))}
     </ul>
