@@ -33,3 +33,11 @@ exports.game_image_get = asyncHandler(async (req, res, next) => {
     game_image
   });
 });
+
+
+// Verify if selected coordinates match with characters
+exports.game_image_post = asyncHandler(async (req, res, next) => {
+  res.json({
+    message: 'Check coordinates for match'
+  })
+})
