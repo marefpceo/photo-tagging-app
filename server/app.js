@@ -2,6 +2,9 @@ require('dotenv').config();
 
 const createError = require('http-errors');
 const express = require('express');
+const expressSession = require('express-session');
+const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
+const { PrismaClient } = require('@prisma/client');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -17,6 +20,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(
+  expressSession({
+    secret: process.env.COOKIE_SECRET,
+    resave: true,
+    saveUninitialized: true,
+    store: new PrismaSessionStore(new PrismaClient(), {
+      checkPeriod: 2 * 60 * 1000,
+      dbRecordIdIsSessionId: true,
+      dbRecordIdFunction: undefined,
+    }),
+  }),
+);
 
 app.use('/', indexRouter);
 
