@@ -5,6 +5,7 @@ function DropMenu({
   setCharacter,
   target,
   toggleMenu,
+  setVerify
 }) {
   return (
     <ul
@@ -22,6 +23,7 @@ function DropMenu({
               yCoord: target.y,
             });
             toggleMenu();
+            setVerify(true);
           }}
         >
           {character.character_name}

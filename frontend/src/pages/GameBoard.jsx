@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Canvas from '../components/Canvas';
 import DropMenu from '../components/DropMenu';
@@ -14,11 +14,9 @@ function GameBoard() {
   const [showMenu, setShowMenu] = useState('none');
   const [showDialogModal, setShowDialogModal] = useState(false);
   const [showRulesModal, setShowRulesModal] = useState(false);
-  const [character, setCharacter] = useState({
-    characterId: 0,
-    xCoord: 0,
-    yCoord: 0,
-  });
+  const [character, setCharacter] = useState({});
+  const [verify, setVerify] = useState(false);
+  const [found, setFound] = useState(0);
 
   function toggleMenu() {
     if (showMenu === 'none') {
@@ -30,6 +28,7 @@ function GameBoard() {
     }
   }
 
+  console.log(character);
   function toggleRulesModal() {
     if (showRulesModal === false) {
       setShowRulesModal(true);
@@ -46,7 +45,13 @@ function GameBoard() {
     }
   }
 
-  function verifyUserSelection() {}
+  useEffect(() => {
+    if (!verify) { return };
+    
+    
+    console.log(verify);
+    setVerify(false);
+  }, [verify]);
 
   return (
     <section className='relative grid h-full grid-rows-[10%_90%]'>
@@ -91,6 +96,7 @@ function GameBoard() {
         setCharacter={setCharacter}
         target={target}
         toggleMenu={toggleMenu}
+        setVerify={setVerify}
       />
       <DialogModal
         message={'Are you sure you want to quit?'}
