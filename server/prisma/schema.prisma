@@ -35,6 +35,15 @@ model Game_image {
   game_leaders      User[]
 }
 
+model Data {
+  id                String        @id @default("current_game_data")
+  startTime         DateTime?      
+  stopTime          DateTime?
+  imageId           Int?
+  characterCount    Int?
+  foundCharacters   Int[]
+}
+
 model Session {
   id                String  @id
   sid               String  @unique

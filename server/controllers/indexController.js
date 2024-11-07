@@ -8,14 +8,13 @@ exports.image_list_get = asyncHandler(async (req, res, next) => {
     include: {
       characters: true,
       game_leaders: true,
-    }
+    },
   });
-  
+
   res.json({
-    image_list
+    image_list,
   });
 });
-
 
 // Return selected game image
 exports.game_image_get = asyncHandler(async (req, res, next) => {
@@ -26,18 +25,17 @@ exports.game_image_get = asyncHandler(async (req, res, next) => {
     include: {
       characters: true,
       game_leaders: true,
-    }
+    },
   });
 
   res.json({
-    game_image
+    game_image,
   });
 });
-
 
 // Verify if selected coordinates match with characters
 exports.game_image_post = asyncHandler(async (req, res, next) => {
   res.json({
-    message: 'Check coordinates for match'
-  })
-})
+    message: 'Check coordinates for match',
+  });
+});
