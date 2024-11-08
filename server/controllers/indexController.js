@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const { DateTime } = require('luxon');
 
 // Return all image game images
 exports.image_list_get = asyncHandler(async (req, res, next) => {
@@ -30,6 +31,24 @@ exports.game_image_get = asyncHandler(async (req, res, next) => {
 
   res.json({
     game_image,
+  });
+});
+
+// Initializes and updates current game data
+exports.game_image_put = asyncHandler(async (req, res, next) => {
+  const dataUpdate = await prisma.data.update({
+    where: {
+      id: 'current_game_data',
+    },
+    data: {
+      startTime: DateTime.now().toISO(),
+      imageId: req.body.imageId,
+      characterCount: req.body.characterCount,
+    },
+  });
+
+  res.json({
+    message: 'Game started at: ' + dataUpdate.startTime,
   });
 });
 
