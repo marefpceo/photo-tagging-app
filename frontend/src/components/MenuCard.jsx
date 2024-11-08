@@ -18,6 +18,7 @@ function MenuCard({ image_location, id, title, width, height, characters }) {
       <Link
         to={'/game'}
         state={{
+          imageId: id,
           image_location: image_location,
           title: title,
           width: width,
