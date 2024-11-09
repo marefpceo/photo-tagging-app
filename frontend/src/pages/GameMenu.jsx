@@ -29,7 +29,7 @@ function GameMenu() {
       </div>
 
       <div className='flex justify-evenly'>
-        {gameImages.map((image) => (
+        {gameImages && gameImages.map((image) => (
           <MenuCard
             key={image.id}
             id={image.id}
