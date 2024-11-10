@@ -34,21 +34,33 @@ exports.game_image_get = asyncHandler(async (req, res, next) => {
   });
 });
 
-// Initializes and updates current game data
+// Initializes and starts game
 exports.game_image_put = asyncHandler(async (req, res, next) => {
+  const currentGameImage = await prisma.game_image.findUnique({
+    where: {
+      id: parseInt(req.params.gameImageId),
+    },
+    include: {
+      _count: {
+        select: { characters: true },
+      },
+    },
+  });
+
   const dataUpdate = await prisma.data.update({
     where: {
       id: 'current_game_data',
     },
     data: {
       startTime: DateTime.now().toISO(),
-      imageId: req.body.imageId,
-      characterCount: req.body.characterCount,
+      imageId: parseInt(req.params.gameImageId),
+      characterCount: currentGameImage._count.characters,
     },
   });
 
   res.json({
     message: 'Game started at: ' + dataUpdate.startTime,
+    currentGameImage: currentGameImage._count.characters,
   });
 });
 

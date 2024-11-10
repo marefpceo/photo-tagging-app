@@ -15,36 +15,7 @@ function GameBoard() {
   const [showDialogModal, setShowDialogModal] = useState(false);
   const [showRulesModal, setShowRulesModal] = useState(false);
   const [character, setCharacter] = useState({});
-  const [gameStarted, setGameStarted] = useState(false);
   const [verify, setVerify] = useState(false);
-  const [found, setFound] = useState(0);
-
-  useEffect(() => {
-    async function startGame() {
-      if (gameStarted) { return };
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_BASE_URL}/${state.imageId}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              imageId: state.imageId,
-              characterCount: state.characters.length
-            })
-          }
-        );
-        if (response.ok) {
-          let responseData = await response.text();
-          setGameStarted(true);
-          console.log(responseData); 
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    startGame();
-  }, [gameStarted, state.characters.length, state.imageId]);
-
 
   useEffect(() => {
     if (!verify) { return };
@@ -80,7 +51,6 @@ function GameBoard() {
       setShowDialogModal(false);
     }
   }
-
 
   return (
     <section className='relative grid h-full grid-rows-[10%_90%]'>

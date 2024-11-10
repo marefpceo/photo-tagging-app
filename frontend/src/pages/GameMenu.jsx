@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import MenuCard from '../components/MenuCard';
-// import { imageList } from '../Utilities/helper';
 
 function GameMenu() {
   const [gameImages, setGameImages] = useState([]);
@@ -22,6 +21,24 @@ function GameMenu() {
     getImageList();
   }, []);
 
+  
+  async function startGame(gameImageId) {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/${gameImageId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+      if (response.ok) {
+        let responseData = await response.json();
+        console.log(responseData); 
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <section className='flex h-full flex-col justify-center gap-16'>
       <div className='flex flex-col justify-center'>
@@ -38,6 +55,7 @@ function GameMenu() {
             width={image.width}
             height={image.height}
             characters={image.characters}
+            startGame={startGame}
           />
         ))}
       </div>
