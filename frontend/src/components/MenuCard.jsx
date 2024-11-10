@@ -1,10 +1,20 @@
 import Button from './Button';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function MenuCard({ image_location, id, title, width, height, characters, startGame }) {
+  const navigate = useNavigate();
+
   function handleClick() {
     startGame(id);
-  }
+    navigate('/game', { state: {
+      imageId: id,
+      image_location: image_location,
+      title: title,
+      width: width,
+      height: height,
+      characters: characters,
+    }});
+  };
 
   return (
     <div
@@ -19,27 +29,15 @@ function MenuCard({ image_location, id, title, width, height, characters, startG
           className='h-44 w-full'
         />
       </div>
-      <Link
-        to={'/game'}
-        state={{
-          imageId: id,
-          image_location: image_location,
-          title: title,
-          width: width,
-          height: height,
-          characters: characters,
-        }}
-      >
-        <Button
-          type={'button'}
-          id={'menuCardBtn'}
-          text={'Select'}
-          className={
-            'mt-4 h-10 w-28 rounded-md bg-red-500 font-bold text-white hover:shadow-lg'
-          }
-          onClick={handleClick}
-        />
-      </Link>
+      <Button
+        type={'button'}
+        id={'menuCardBtn'}
+        text={'Select'}
+        className={
+          'mt-4 h-10 w-28 rounded-md bg-red-500 font-bold text-white hover:shadow-lg'
+        }
+        onClick={handleClick}
+      />
     </div>
   );
 }
