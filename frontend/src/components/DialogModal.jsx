@@ -2,6 +2,7 @@ import Button from './Button';
 import { Link } from 'react-router-dom';
 
 function DialogModal({ message, showDialogModal, toggleDialogModal }) {
+  
   return (
     <div
       className='absolute z-40 row-span-2 mt-2 h-full w-full flex-col justify-center bg-gray-200 bg-opacity-85'

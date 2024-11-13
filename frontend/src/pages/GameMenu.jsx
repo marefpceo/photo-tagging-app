@@ -28,6 +28,9 @@ function GameMenu() {
         `${import.meta.env.VITE_API_BASE_URL}/${gameImageId}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            gameStatus: 'start'
+          })
         }
       );
       if (response.ok) {
