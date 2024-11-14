@@ -1,7 +1,7 @@
 import Button from './Button';
 import { Link } from 'react-router-dom';
 
-function DialogModal({ message, showDialogModal, toggleDialogModal }) {
+function DialogModal({ message, showDialogModal, toggleDialogModal, onClick }) {
   
   return (
     <div
@@ -19,6 +19,7 @@ function DialogModal({ message, showDialogModal, toggleDialogModal }) {
               className={
                 'h-8 w-16 rounded-md bg-green-400 font-bold text-white shadow-md'
               }
+              onClick={onClick}
             />
           </Link>
           <Button

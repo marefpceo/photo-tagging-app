@@ -25,6 +25,17 @@ function GameBoard() {
     setVerify(false);
   }, [verify]);
 
+  async function quitGame() {
+    try {
+      await fetch(`${import.meta.env.VITE_API_BASE_URL}/quit_game`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   function toggleMenu() {
     if (showMenu === 'none') {
       setShowMenu('block');
@@ -101,6 +112,7 @@ function GameBoard() {
         message={'Are you sure you want to quit?'}
         showDialogModal={showDialogModal}
         toggleDialogModal={toggleDialogModal}
+        onClick={quitGame}
       />
       <RulesModal
         linkTo={''}
