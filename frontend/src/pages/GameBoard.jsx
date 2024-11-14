@@ -20,6 +20,7 @@ function GameBoard() {
   useEffect(() => {
     if (!verify) { return };
     
+    // Ready for API calls to verify character coordinates
     
     console.log(verify);
     setVerify(false);
@@ -97,6 +98,7 @@ function GameBoard() {
         setClickPosition={setClickPostion}
         target={target}
         setTarget={setTarget}
+        setVerify={setVerify}
         toggleMenu={toggleMenu}
       />
       <DropMenu

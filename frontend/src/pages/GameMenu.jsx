@@ -24,7 +24,7 @@ function GameMenu() {
   
   async function startGame(gameImageId) {
     try {
-      const response = await fetch(
+      await fetch(
         `${import.meta.env.VITE_API_BASE_URL}/${gameImageId}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
@@ -33,10 +33,6 @@ function GameMenu() {
           })
         }
       );
-      if (response.ok) {
-        let responseData = await response.json();
-        console.log(responseData); 
-      }
     } catch (error) {
       console.error(error);
     }
