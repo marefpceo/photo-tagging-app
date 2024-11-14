@@ -64,17 +64,9 @@ exports.game_image_put = asyncHandler(async (req, res, next) => {
   });
 });
 
-// Ends game
-exports.end_game_put = asyncHandler(async (req, res, next) => {
-  const startTime = await prisma.data.findUnique({
-    where: {
-      id: 'current_game_data',
-    },
-    select: {
-      startTime: true,
-    },
-  });
-  const gameDataReset = await prisma.data.update({
+// Handles ending the game when the user quits or exits
+exports.quit_game_put = asyncHandler(async (req, res, next) => {
+  await prisma.data.update({
     where: {
       id: 'current_game_data',
     },
@@ -87,12 +79,11 @@ exports.end_game_put = asyncHandler(async (req, res, next) => {
   });
   res.json({
     message: 'Gamed ended',
-    startTime,
   });
 });
 
 // Verify if selected coordinates match with characters
-exports.game_image_post = asyncHandler(async (req, res, next) => {
+exports.check_selection = asyncHandler(async (req, res, next) => {
   res.json({
     message: 'Check coordinates for match',
   });
