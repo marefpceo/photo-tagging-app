@@ -41,7 +41,7 @@ model Data {
   stopTime          DateTime?
   imageId           Int?
   characterCount    Int?
-  foundCharacters   Int[]
+  foundCharacters   Int[]         @unique
 }
 
 model Session {
