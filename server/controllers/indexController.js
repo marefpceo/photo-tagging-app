@@ -59,7 +59,11 @@ exports.check_selection = asyncHandler(async (req, res, next) => {
     ),
   );
 
-  if (checkRange > 30) {
+  const duplicateFinds = gameData.foundCharacters.includes(
+    parseInt(req.body.characterId),
+  );
+
+  if (checkRange > 30 || duplicateFinds === true) {
     res.json({
       message: 'Incorrect selection',
     });
@@ -75,23 +79,23 @@ exports.check_selection = asyncHandler(async (req, res, next) => {
       },
     });
 
-    if (gameData.characterCount === gameData.foundCharacters.length) {
+    if (gameData.characterCount === gameData.foundCharacters.length + 1) {
       res.json({
         message: 'You Win',
       });
+    } else {
+      res.json({
+        message: 'Check coordinates for match',
+        characterInfo,
+        checkRange,
+        input: {
+          characterId: req.body.characterId,
+          xCoord: req.body.xCoord,
+          yCoord: req.body.yCoord,
+        },
+        updateFoundCharacter,
+      });
     }
-
-    res.json({
-      message: 'Check coordinates for match',
-      characterInfo,
-      checkRange,
-      input: {
-        characterId: req.body.characterId,
-        xCoord: req.body.xCoord,
-        yCoord: req.body.yCoord,
-      },
-      updateFoundCharacter,
-    });
   }
 });
 
