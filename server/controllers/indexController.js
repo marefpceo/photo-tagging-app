@@ -17,6 +17,84 @@ exports.image_list_get = asyncHandler(async (req, res, next) => {
   });
 });
 
+// Handles ending the game when the user quits or exits
+exports.quit_game_put = asyncHandler(async (req, res, next) => {
+  await prisma.data.update({
+    where: {
+      id: 'current_game_data',
+    },
+    data: {
+      startTime: null,
+      stopTime: null,
+      imageId: null,
+      characterCount: null,
+      foundCharacters: {
+        set: [],
+      },
+    },
+  });
+  res.json({
+    message: 'Gamed ended',
+  });
+});
+
+// Verify if selected coordinates match with characters
+exports.check_selection = asyncHandler(async (req, res, next) => {
+  const characterInfo = await prisma.character.findUnique({
+    where: {
+      id: parseInt(req.body.characterId),
+    },
+  });
+
+  const gameData = await prisma.data.findUnique({
+    where: {
+      id: 'current_game_data',
+    },
+  });
+
+  const checkRange = Math.floor(
+    Math.sqrt(
+      (req.body.xCoord - characterInfo.xCoordinate) ** 2 +
+        (req.body.yCoord - characterInfo.yCoordinate) ** 2,
+    ),
+  );
+
+  if (checkRange > 30) {
+    res.json({
+      message: 'Incorrect selection',
+    });
+  } else {
+    const updateFoundCharacter = await prisma.data.update({
+      where: {
+        id: 'current_game_data',
+      },
+      data: {
+        foundCharacters: {
+          push: parseInt(req.body.characterId),
+        },
+      },
+    });
+
+    if (gameData.characterCount === gameData.foundCharacters.length) {
+      res.json({
+        message: 'You Win',
+      });
+    }
+
+    res.json({
+      message: 'Check coordinates for match',
+      characterInfo,
+      checkRange,
+      input: {
+        characterId: req.body.characterId,
+        xCoord: req.body.xCoord,
+        yCoord: req.body.yCoord,
+      },
+      updateFoundCharacter,
+    });
+  }
+});
+
 // Return selected game image
 exports.game_image_get = asyncHandler(async (req, res, next) => {
   const game_image = await prisma.game_image.findUnique({
@@ -60,31 +138,6 @@ exports.game_image_put = asyncHandler(async (req, res, next) => {
 
   res.json({
     message: 'Game started at: ' + dataUpdate.startTime,
-    currentGameImage: currentGameImage._count.characters,
-  });
-});
-
-// Handles ending the game when the user quits or exits
-exports.quit_game_put = asyncHandler(async (req, res, next) => {
-  await prisma.data.update({
-    where: {
-      id: 'current_game_data',
-    },
-    data: {
-      startTime: null,
-      stopTime: null,
-      imageId: null,
-      characterCount: null,
-    },
-  });
-  res.json({
-    message: 'Gamed ended',
-  });
-});
-
-// Verify if selected coordinates match with characters
-exports.check_selection = asyncHandler(async (req, res, next) => {
-  res.json({
-    message: 'Check coordinates for match',
+    currentGameImage: currentGameImage.id,
   });
 });
