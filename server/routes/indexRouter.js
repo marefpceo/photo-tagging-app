@@ -14,7 +14,7 @@ router.post('/check_selection', indexController.check_selection);
 // GET Selected game image
 router.get('/:gameImageId', indexController.game_image_get);
 
-// PUT Start game with selected game image
-router.put('/:gameImageId', indexController.game_image_put);
+// POST Start game with selected game image
+router.post('/:gameImageId', indexController.game_image_post);
 
 module.exports = router;

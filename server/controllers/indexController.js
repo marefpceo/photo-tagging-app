@@ -128,7 +128,7 @@ exports.game_image_get = asyncHandler(async (req, res, next) => {
 });
 
 // Initializes and starts game
-exports.game_image_put = asyncHandler(async (req, res, next) => {
+exports.game_image_post = asyncHandler(async (req, res, next) => {
   const currentGameImage = await prisma.game_image.findUnique({
     where: {
       id: parseInt(req.params.gameImageId),
@@ -140,10 +140,7 @@ exports.game_image_put = asyncHandler(async (req, res, next) => {
     },
   });
 
-  const dataUpdate = await prisma.data.update({
-    where: {
-      id: 'current_game_data',
-    },
+  const userDataCreate = await prisma.data.create({
     data: {
       startTime: DateTime.now().toISO(),
       imageId: parseInt(req.params.gameImageId),
@@ -152,7 +149,7 @@ exports.game_image_put = asyncHandler(async (req, res, next) => {
   });
 
   res.json({
-    message: 'Game started at: ' + dataUpdate.startTime,
+    message: 'Game started at: ' + userDataCreate.startTime,
     currentGameImage: currentGameImage.id,
   });
 });

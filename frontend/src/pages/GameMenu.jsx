@@ -26,11 +26,8 @@ function GameMenu() {
     try {
       await fetch(
         `${import.meta.env.VITE_API_BASE_URL}/${gameImageId}`, {
-          method: 'PUT',
+          method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            gameStatus: 'start'
-          })
         }
       );
     } catch (error) {
