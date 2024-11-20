@@ -36,17 +36,18 @@ model Game_image {
 }
 
 model Data {
-  id                String        @id @default("current_game_data")
+  id                Int         @id @default(autoincrement())
+  user_id           String      @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   startTime         DateTime?      
   stopTime          DateTime?
   imageId           Int?
   characterCount    Int?
-  foundCharacters   Int[]         @unique
+  foundCharacters   Int[]       @unique
 }
 
 model Session {
-  id                String  @id
-  sid               String  @unique
-  data              String  @db.Text 
+  id                String      @id
+  sid               String      @unique
+  data              String      @db.Text 
   expiresAt         DateTime
 }
