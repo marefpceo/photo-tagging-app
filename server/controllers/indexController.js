@@ -80,8 +80,19 @@ exports.check_selection = asyncHandler(async (req, res, next) => {
     });
 
     if (gameData.characterCount === gameData.foundCharacters.length + 1) {
+      await prisma.data.update({
+        where: {
+          id: 'current_game_data',
+        },
+        data: {
+          stopTime: DateTime.now().toISO(),
+        },
+      });
+
       res.json({
         message: 'You Win',
+        start: gameData.startTime,
+        finihed: gameData.stopTime,
       });
     } else {
       res.json({
