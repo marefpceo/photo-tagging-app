@@ -37,7 +37,7 @@ model Game_image {
 
 model Data {
   id                Int         @id @default(autoincrement())
-  user_id           String      @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id           String      @unique
   startTime         DateTime?      
   stopTime          DateTime?
   imageId           Int?

@@ -48,7 +48,7 @@ exports.check_selection = asyncHandler(async (req, res, next) => {
 
   const gameData = await prisma.data.findUnique({
     where: {
-      id: 'current_game_data',
+      user_id: req.session.id,
     },
   });
 
@@ -70,7 +70,7 @@ exports.check_selection = asyncHandler(async (req, res, next) => {
   } else {
     const updateFoundCharacter = await prisma.data.update({
       where: {
-        id: 'current_game_data',
+        user_id: req.session.id,
       },
       data: {
         foundCharacters: {
@@ -80,9 +80,9 @@ exports.check_selection = asyncHandler(async (req, res, next) => {
     });
 
     if (gameData.characterCount === gameData.foundCharacters.length + 1) {
-      await prisma.data.update({
+      const updateGame = await prisma.data.update({
         where: {
-          id: 'current_game_data',
+          user_id: req.session.id,
         },
         data: {
           stopTime: DateTime.now().toISO(),
@@ -92,7 +92,8 @@ exports.check_selection = asyncHandler(async (req, res, next) => {
       res.json({
         message: 'You Win',
         start: gameData.startTime,
-        finihed: gameData.stopTime,
+        finished: updateGame.stopTime,
+        // need elapsed time calculation
       });
     } else {
       res.json({
@@ -142,12 +143,14 @@ exports.game_image_post = asyncHandler(async (req, res, next) => {
 
   const userDataCreate = await prisma.data.create({
     data: {
+      user_id: req.session.id,
       startTime: DateTime.now().toISO(),
       imageId: parseInt(req.params.gameImageId),
       characterCount: currentGameImage._count.characters,
     },
   });
 
+  console.log(req.session.id);
   res.json({
     message: 'Game started at: ' + userDataCreate.startTime,
     currentGameImage: currentGameImage.id,
