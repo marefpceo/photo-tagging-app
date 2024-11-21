@@ -94,6 +94,10 @@ exports.check_selection = asyncHandler(async (req, res, next) => {
         start: gameData.startTime,
         finished: updateGame.stopTime,
         // need elapsed time calculation
+        elapsed: DateTime.fromISO(gameData.stopTime).diff(
+          DateTime.fromISO(gameData.startTime),
+          'minutes',
+        ),
       });
     } else {
       res.json({
