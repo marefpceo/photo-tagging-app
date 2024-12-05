@@ -89,11 +89,19 @@ exports.check_selection = asyncHandler(async (req, res, next) => {
         },
       });
 
+      let gameStart = DateTime.fromJSDate(gameData.startTime);
+      let gameEnd = DateTime.fromJSDate(updateGame.stopTime);
+      const totalTime = gameEnd
+        .diff(gameStart, ['minutes', 'seconds'])
+        .toObject();
+
+      console.log(gameStart, gameEnd);
+
       res.json({
         message: 'You Win',
         start: gameData.startTime,
         finished: updateGame.stopTime,
-        // need elapsed time calculation
+        elapsed_time: totalTime,
       });
     } else {
       res.json({
