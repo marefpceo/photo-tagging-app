@@ -138,6 +138,7 @@ exports.game_image_get = asyncHandler(async (req, res, next) => {
 
 // Initializes and starts game
 exports.game_image_post = asyncHandler(async (req, res, next) => {
+  const sessionId = req.session.id;
   const currentGameImage = await prisma.game_image.findUnique({
     where: {
       id: parseInt(req.params.gameImageId),
@@ -151,7 +152,7 @@ exports.game_image_post = asyncHandler(async (req, res, next) => {
 
   const userDataCreate = await prisma.data.create({
     data: {
-      user_id: req.session.id,
+      user_id: sessionId,
       startTime: DateTime.now().toISO(),
       imageId: parseInt(req.params.gameImageId),
       characterCount: currentGameImage._count.characters,
