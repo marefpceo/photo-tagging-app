@@ -138,6 +138,7 @@ exports.game_image_get = asyncHandler(async (req, res, next) => {
 
 // Initializes and starts game
 exports.game_image_post = asyncHandler(async (req, res, next) => {
+  req.session.save();
   const sessionId = req.session.id;
   const currentGameImage = await prisma.game_image.findUnique({
     where: {
