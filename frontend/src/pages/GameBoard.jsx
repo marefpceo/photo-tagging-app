@@ -19,12 +19,31 @@ function GameBoard() {
 
   useEffect(() => {
     if (!verify) { return };
-    
+    async function checkCoordinates() {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/check_selection`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            character
+          })
+        });
+
+        if (response.ok) {
+          const responseData = response.json();
+          console.log(responseData);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    } checkCoordinates();
     // Ready for API calls to verify character coordinates
+
+
     
     console.log(verify);
     setVerify(false);
-  }, [verify]);
+  }, [verify, character]);
 
   async function quitGame() {
     try {
