@@ -48,7 +48,7 @@ exports.check_selection = asyncHandler(async (req, res, next) => {
 
   const gameData = await prisma.data.findUnique({
     where: {
-      user_id: req.session.id,
+      user_id: req.session.user,
     },
   });
 
@@ -70,7 +70,7 @@ exports.check_selection = asyncHandler(async (req, res, next) => {
   } else {
     const updateFoundCharacter = await prisma.data.update({
       where: {
-        user_id: req.session.id,
+        user_id: req.session.user,
       },
       data: {
         foundCharacters: {
@@ -82,7 +82,7 @@ exports.check_selection = asyncHandler(async (req, res, next) => {
     if (gameData.characterCount === gameData.foundCharacters.length + 1) {
       const updateGame = await prisma.data.update({
         where: {
-          user_id: req.session.id,
+          user_id: req.session.user,
         },
         data: {
           stopTime: DateTime.now().toISO(),
@@ -94,8 +94,6 @@ exports.check_selection = asyncHandler(async (req, res, next) => {
       const totalTime = gameEnd
         .diff(gameStart, ['minutes', 'seconds'])
         .toObject();
-
-      console.log(gameStart, gameEnd);
 
       res.json({
         message: 'You Win',
@@ -138,6 +136,7 @@ exports.game_image_get = asyncHandler(async (req, res, next) => {
 
 // Initializes and starts game
 exports.game_image_post = asyncHandler(async (req, res, next) => {
+  req.session.user = req.session.id;
   req.session.save();
   const sessionId = req.session.id;
   const currentGameImage = await prisma.game_image.findUnique({
