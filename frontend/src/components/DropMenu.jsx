@@ -18,7 +18,7 @@ function DropMenu({
           className='m-0 border px-2 py-1 text-sm hover:bg-slate-300'
           onClick={() => {
             setCharacter({
-              characerId: character.id,
+              characterId: character.id,
               xCoord: target.x,
               yCoord: target.y,
             });

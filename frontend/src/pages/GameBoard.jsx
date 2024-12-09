@@ -24,22 +24,22 @@ function GameBoard() {
         const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/check_selection`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
           body: JSON.stringify({
-            character
+            characterId: character.characterId,
+            xCoord: character.xCoord,
+            yCoord: character.yCoord,
           })
         });
 
         if (response.ok) {
-          const responseData = response.json();
+          const responseData = await response.json();
           console.log(responseData);
         }
       } catch (error) {
         console.error(error);
       }
     } checkCoordinates();
-    // Ready for API calls to verify character coordinates
-
-
     
     console.log(verify);
     setVerify(false);
