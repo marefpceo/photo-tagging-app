@@ -103,7 +103,7 @@ exports.check_selection = asyncHandler(async (req, res, next) => {
       });
     } else {
       res.json({
-        message: 'Check coordinates for match',
+        message: `You have found ${characterInfo.name}`,
         characterInfo,
         checkRange,
         input: {
