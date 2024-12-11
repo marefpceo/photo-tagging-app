@@ -18,7 +18,17 @@ exports.image_list_get = asyncHandler(async (req, res, next) => {
 });
 
 // Handles ending game after finding all characters
-exports.end_game_get = asyncHandler(async (req, res, next) => {});
+exports.end_game_get = asyncHandler(async (req, res, next) => {
+  const userList = await prisma.user.findMany({
+    where: {
+      imageId: parseInt(req.body.imageId),
+    },
+  });
+
+  res.json({
+    userList,
+  });
+});
 
 // Handles ending the game when the user quits or exits
 exports.quit_game_put = asyncHandler(async (req, res, next) => {
