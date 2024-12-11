@@ -10,6 +10,7 @@ function Canvas({
   target,
   setTarget,
   toggleMenu,
+  charactersFound
 }) {
   const canvasRef = useRef(null);
   const [scale, setScale] = useState(1);
@@ -28,8 +29,19 @@ function Canvas({
       context.arc(target.x, target.y, 30, 0, 2 * Math.PI);
       context.stroke();
       context.closePath();
+
+      if (charactersFound !== undefined) {
+        for (let x = 0; x < charactersFound.length; x++) {
+          context.strokeStyle = 'green';
+          context.lineWidth = 7;
+          context.beginPath();
+          context.arc(charactersFound[x].xCoord, charactersFound[x].yCoord, 30, 0, 2 * Math.PI);
+          context.stroke();
+          context.closePath();
+        }
+      }
     };
-  }, [imgSrc, target, clickPosition]);
+  }, [imgSrc, target, clickPosition, charactersFound]);
 
   function handleClick(e) {
     e.preventDefault();

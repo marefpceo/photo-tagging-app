@@ -16,6 +16,7 @@ function GameBoard() {
   const [showRulesModal, setShowRulesModal] = useState(false);
   const [character, setCharacter] = useState({});
   const [verify, setVerify] = useState(false);
+  const [charactersFound, setCharactersFound] = useState([]);
 
   useEffect(() => {
     if (!verify) { return };
@@ -32,10 +33,16 @@ function GameBoard() {
           })
         });
 
-        if (response.ok) {
-          const responseData = await response.json();
-          console.log(responseData);
+
+        const responseData = await response.json();
+        if (responseData.input !== 'undefined') {
+          setCharactersFound([
+            ...charactersFound, 
+            responseData.input
+          ]);
         }
+        console.log(responseData);
+        
       } catch (error) {
         console.error(error);
       }
@@ -43,7 +50,7 @@ function GameBoard() {
     
     console.log(verify);
     setVerify(false);
-  }, [verify, character]);
+  }, [verify, character, charactersFound]);
 
   async function quitGame() {
     try {
@@ -119,6 +126,7 @@ function GameBoard() {
         setTarget={setTarget}
         setVerify={setVerify}
         toggleMenu={toggleMenu}
+        charactersFound={charactersFound}
       />
       <DropMenu
         characters={state.characters}
