@@ -100,6 +100,11 @@ exports.check_selection = asyncHandler(async (req, res, next) => {
         start: gameData.startTime,
         finished: updateGame.stopTime,
         elapsed_time: totalTime,
+        input: {
+          characterId: req.body.characterId,
+          xCoord: req.body.xCoord,
+          yCoord: req.body.yCoord,
+        },
       });
     } else {
       res.json({

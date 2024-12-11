@@ -35,13 +35,14 @@ function GameBoard() {
 
 
         const responseData = await response.json();
-        if (responseData.input !== 'undefined') {
+        if (responseData.input !== undefined) {
           setCharactersFound([
             ...charactersFound, 
             responseData.input
           ]);
         }
         console.log(responseData);
+        console.log(charactersFound);
         
       } catch (error) {
         console.error(error);
