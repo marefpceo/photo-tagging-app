@@ -5,8 +5,11 @@ const indexController = require('../controllers/indexController');
 // GET Image List
 router.get('/image_list', indexController.image_list_get);
 
-// PUT End game
+// PUT Quit game
 router.put('/quit_game', indexController.quit_game_put);
+
+// GET End game
+router.get('/end_game', indexController.end_game_get);
 
 // POST Check selected game image for coordinate match
 router.post('/check_selection', indexController.check_selection);

@@ -32,7 +32,7 @@ function Canvas({
 
       if (charactersFound !== undefined) {
         for (let x = 0; x < charactersFound.length; x++) {
-          context.strokeStyle = 'green';
+          context.strokeStyle = '#66ff00';
           context.lineWidth = 7;
           context.beginPath();
           context.arc(charactersFound[x].xCoord, charactersFound[x].yCoord, 30, 0, 2 * Math.PI);

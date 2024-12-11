@@ -108,7 +108,7 @@ exports.check_selection = asyncHandler(async (req, res, next) => {
       });
     } else {
       res.json({
-        message: `You have found ${characterInfo.name}`,
+        message: `You have found ${characterInfo.character_name}`,
         characterInfo,
         checkRange,
         input: {

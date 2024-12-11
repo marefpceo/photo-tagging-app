@@ -41,15 +41,11 @@ function GameBoard() {
             responseData.input
           ]);
         }
-        console.log(responseData);
-        console.log(charactersFound);
-        
       } catch (error) {
         console.error(error);
       }
     } checkCoordinates();
     
-    console.log(verify);
     setVerify(false);
   }, [verify, character, charactersFound]);
 
@@ -74,7 +70,6 @@ function GameBoard() {
     }
   }
 
-  console.log(character);
   function toggleRulesModal() {
     if (showRulesModal === false) {
       setShowRulesModal(true);
