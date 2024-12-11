@@ -17,6 +17,9 @@ exports.image_list_get = asyncHandler(async (req, res, next) => {
   });
 });
 
+// Handles ending game after finding all characters
+exports.end_game_get = asyncHandler(async (req, res, next) => {});
+
 // Handles ending the game when the user quits or exits
 exports.quit_game_put = asyncHandler(async (req, res, next) => {
   await prisma.data.update({
@@ -105,6 +108,7 @@ exports.check_selection = asyncHandler(async (req, res, next) => {
           xCoord: req.body.xCoord,
           yCoord: req.body.yCoord,
         },
+        isGameOver: true,
       });
     } else {
       res.json({
