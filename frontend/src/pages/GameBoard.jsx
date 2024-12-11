@@ -5,6 +5,7 @@ import DropMenu from '../components/DropMenu';
 import Button from '../components/Button';
 import DialogModal from '../components/DialogModal';
 import RulesModal from '../components/RulesModal';
+import EndGameModal from '../components/EndGameModal';
 import CharacterIcons from '../components/CharacterIcons';
 
 function GameBoard() {
@@ -14,9 +15,11 @@ function GameBoard() {
   const [showMenu, setShowMenu] = useState('none');
   const [showDialogModal, setShowDialogModal] = useState(false);
   const [showRulesModal, setShowRulesModal] = useState(false);
+  const [showEndGameModal, setShowEndGameModal] = useState(false);
   const [character, setCharacter] = useState({});
   const [verify, setVerify] = useState(false);
   const [charactersFound, setCharactersFound] = useState([]);
+  const [endGameStats, setEndGameStats] = useState({});
 
   useEffect(() => {
     if (!verify) { return };
@@ -41,13 +44,22 @@ function GameBoard() {
             responseData.input
           ]);
         }
+
+        if (responseData.isGameOver === true) {
+          if (showEndGameModal === false) {
+            setShowEndGameModal(true);
+          } else {
+            setShowEndGameModal(false);
+          }
+          setEndGameStats(responseData.elapsed_time);
+        }
       } catch (error) {
         console.error(error);
       }
     } checkCoordinates();
     
     setVerify(false);
-  }, [verify, character, charactersFound]);
+  }, [verify, character, charactersFound, showEndGameModal]);
 
   async function quitGame() {
     try {
@@ -144,6 +156,11 @@ function GameBoard() {
         onClick={toggleRulesModal}
         isDisplaySet={showRulesModal}
         heightWidth={'h-full w-full'}
+      />
+      <EndGameModal
+        showEndGameModal={showEndGameModal}
+        endGameStats={endGameStats}
+        imageId={state.imageId}
       />
     </section>
   );
