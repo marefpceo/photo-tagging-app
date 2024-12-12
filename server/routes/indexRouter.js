@@ -5,8 +5,8 @@ const indexController = require('../controllers/indexController');
 // GET Image List
 router.get('/image_list', indexController.image_list_get);
 
-// PUT Quit game
-router.put('/quit_game', indexController.quit_game_put);
+// DELETE Quit game
+router.delete('/quit_game', indexController.quit_game_delete);
 
 // GET End game
 router.get('/end_game', indexController.end_game_get);

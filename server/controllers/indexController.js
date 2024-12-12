@@ -31,23 +31,16 @@ exports.end_game_get = asyncHandler(async (req, res, next) => {
 });
 
 // Handles ending the game when the user quits or exits
-exports.quit_game_put = asyncHandler(async (req, res, next) => {
-  await prisma.data.update({
+exports.quit_game_delete = asyncHandler(async (req, res, next) => {
+  await prisma.data.delete({
     where: {
-      id: 'current_game_data',
-    },
-    data: {
-      startTime: null,
-      stopTime: null,
-      imageId: null,
-      characterCount: null,
-      foundCharacters: {
-        set: [],
-      },
+      user_id: req.session.user,
     },
   });
+  req.session.destroy();
+
   res.json({
-    message: 'Gamed ended',
+    message: 'User ended game',
   });
 });
 

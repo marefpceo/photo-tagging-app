@@ -64,8 +64,9 @@ function GameBoard() {
   async function quitGame() {
     try {
       await fetch(`${import.meta.env.VITE_API_BASE_URL}/quit_game`, {
-        method: 'PUT',
+        method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
       });
     } catch (error) {
       console.error(error);
