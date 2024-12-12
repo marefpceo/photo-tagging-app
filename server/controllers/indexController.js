@@ -99,9 +99,13 @@ exports.check_selection = asyncHandler(async (req, res, next) => {
         where: {
           imageId: req.body.imageId,
         },
+        take: 10,
         orderBy: [
           {
-            time: 'desc',
+            minutes: 'desc',
+          },
+          {
+            seconds: 'desc',
           },
         ],
       });

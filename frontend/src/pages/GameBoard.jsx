@@ -20,6 +20,7 @@ function GameBoard() {
   const [verify, setVerify] = useState(false);
   const [charactersFound, setCharactersFound] = useState([]);
   const [endGameStats, setEndGameStats] = useState({});
+  const [leaderList, setLeaderList] = useState([]);
 
   useEffect(() => {
     if (!verify) { return };
@@ -33,9 +34,9 @@ function GameBoard() {
             characterId: character.characterId,
             xCoord: character.xCoord,
             yCoord: character.yCoord,
+            imageId: state.imageId
           })
         });
-
 
         const responseData = await response.json();
         if (responseData.input !== undefined) {
@@ -52,6 +53,7 @@ function GameBoard() {
             setShowEndGameModal(false);
           }
           setEndGameStats(responseData.elapsed_time);
+          setLeaderList(responseData.leaderList);
         }
       } catch (error) {
         console.error(error);
@@ -59,7 +61,7 @@ function GameBoard() {
     } checkCoordinates();
     
     setVerify(false);
-  }, [verify, character, charactersFound, showEndGameModal]);
+  }, [verify, character, charactersFound, showEndGameModal, state.imageId]);
 
   async function quitGame() {
     try {
