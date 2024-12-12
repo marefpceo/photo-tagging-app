@@ -13,7 +13,6 @@ function GameMenu() {
 
         let responseData = await response.json();
         setGameImages(responseData.image_list);
-        console.log(responseData);
       } catch (error) {
         console.error(error);
       }
