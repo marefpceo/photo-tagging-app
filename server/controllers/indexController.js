@@ -95,6 +95,17 @@ exports.check_selection = asyncHandler(async (req, res, next) => {
         },
       });
 
+      const userList = await prisma.user.findMany({
+        where: {
+          imageId: req.body.imageId,
+        },
+        orderBy: [
+          {
+            time: 'desc',
+          },
+        ],
+      });
+
       let gameStart = DateTime.fromJSDate(gameData.startTime);
       let gameEnd = DateTime.fromJSDate(updateGame.stopTime);
       const totalTime = gameEnd
@@ -111,6 +122,7 @@ exports.check_selection = asyncHandler(async (req, res, next) => {
           xCoord: req.body.xCoord,
           yCoord: req.body.yCoord,
         },
+        leaderList: userList,
         isGameOver: true,
       });
     } else {

@@ -20,7 +20,8 @@ model Character {
 model User {
   id                Int         @id @default(autoincrement())
   username          String
-  time              String
+  minutes           Int
+  seconds           Int
   game_image        Game_image  @relation(fields: [imageId], references: [id])
   imageId           Int
 }
