@@ -21,6 +21,8 @@ function GameBoard() {
   const [charactersFound, setCharactersFound] = useState([]);
   const [endGameStats, setEndGameStats] = useState({});
   const [leaderList, setLeaderList] = useState([]);
+  const [isHighScore, setIsHighScore] = useState(false);
+  const [newUser, setNewUser] = useState({});
 
   useEffect(() => {
     if (!verify) { return };
@@ -62,6 +64,17 @@ function GameBoard() {
     
     setVerify(false);
   }, [verify, character, charactersFound, showEndGameModal, state.imageId]);
+
+  useEffect(() => {
+    if(showEndGameModal === false) { return }
+    function checkLeaderBoard() {
+      if (leaderList.length <= 10) {
+        setIsHighScore(true);
+      }
+    }
+    checkLeaderBoard();
+    console.log(leaderList);
+  }, [showEndGameModal, leaderList]);
 
   async function quitGame() {
     try {
@@ -164,6 +177,7 @@ function GameBoard() {
         showEndGameModal={showEndGameModal}
         endGameStats={endGameStats}
         imageId={state.imageId}
+        isHighScore={isHighScore}
       />
     </section>
   );
