@@ -8,7 +8,6 @@ exports.image_list_get = asyncHandler(async (req, res, next) => {
   const image_list = await prisma.game_image.findMany({
     include: {
       characters: true,
-      game_leaders: true,
     },
   });
 
@@ -95,20 +94,20 @@ exports.check_selection = asyncHandler(async (req, res, next) => {
         },
       });
 
-      const userList = await prisma.user.findMany({
-        where: {
-          imageId: req.body.imageId,
-        },
-        take: 10,
-        orderBy: [
-          {
-            minutes: 'desc',
-          },
-          {
-            seconds: 'desc',
-          },
-        ],
-      });
+      // const userList = await prisma.user.findMany({
+      //   where: {
+      //     imageId: parseInt(req.body.imageId),
+      //   },
+      //   take: 10,
+      //   orderBy: [
+      //     {
+      //       minutes: 'desc',
+      //     },
+      //     {
+      //       seconds: 'desc',
+      //     },
+      //   ],
+      // });
 
       let gameStart = DateTime.fromJSDate(gameData.startTime);
       let gameEnd = DateTime.fromJSDate(updateGame.stopTime);
@@ -126,7 +125,6 @@ exports.check_selection = asyncHandler(async (req, res, next) => {
           xCoord: req.body.xCoord,
           yCoord: req.body.yCoord,
         },
-        leaderList: userList,
         isGameOver: true,
       });
     } else {

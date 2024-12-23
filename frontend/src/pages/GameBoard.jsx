@@ -25,27 +25,29 @@ function GameBoard() {
   const [newUser, setNewUser] = useState({});
 
   useEffect(() => {
-    if (!verify) { return };
+    if (!verify) {
+      return;
+    }
     async function checkCoordinates() {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/check_selection`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include',
-          body: JSON.stringify({
-            characterId: character.characterId,
-            xCoord: character.xCoord,
-            yCoord: character.yCoord,
-            imageId: state.imageId
-          })
-        });
+        const response = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL}/check_selection`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({
+              characterId: character.characterId,
+              xCoord: character.xCoord,
+              yCoord: character.yCoord,
+              imageId: state.imageId,
+            }),
+          },
+        );
 
         const responseData = await response.json();
         if (responseData.input !== undefined) {
-          setCharactersFound([
-            ...charactersFound, 
-            responseData.input
-          ]);
+          setCharactersFound([...charactersFound, responseData.input]);
         }
 
         if (responseData.isGameOver === true) {
@@ -55,18 +57,21 @@ function GameBoard() {
             setShowEndGameModal(false);
           }
           setEndGameStats(responseData.elapsed_time);
-          setLeaderList(responseData.leaderList);
+          // setLeaderList(responseData.leaderList);
         }
       } catch (error) {
-        console.error(error);
+        console.error(error.status);
       }
-    } checkCoordinates();
-    
+    }
+    checkCoordinates();
+
     setVerify(false);
   }, [verify, character, charactersFound, showEndGameModal, state.imageId]);
 
   useEffect(() => {
-    if(showEndGameModal === false) { return }
+    if (showEndGameModal === false) {
+      return;
+    }
     function checkLeaderBoard() {
       if (leaderList.length <= 10) {
         setIsHighScore(true);
