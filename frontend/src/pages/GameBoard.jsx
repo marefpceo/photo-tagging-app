@@ -57,7 +57,7 @@ function GameBoard() {
             setShowEndGameModal(false);
           }
           setEndGameStats(responseData.elapsed_time);
-          // setLeaderList(responseData.leaderList);
+          setLeaderList([0]);
         }
       } catch (error) {
         console.error(error.status);
@@ -78,8 +78,7 @@ function GameBoard() {
       }
     }
     checkLeaderBoard();
-    console.log(leaderList);
-  }, [showEndGameModal, leaderList]);
+  }, [leaderList.length, showEndGameModal]);
 
   async function quitGame() {
     try {

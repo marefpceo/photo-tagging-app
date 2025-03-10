@@ -94,21 +94,6 @@ exports.check_selection = asyncHandler(async (req, res, next) => {
         },
       });
 
-      // const userList = await prisma.user.findMany({
-      //   where: {
-      //     imageId: parseInt(req.body.imageId),
-      //   },
-      //   take: 10,
-      //   orderBy: [
-      //     {
-      //       minutes: 'desc',
-      //     },
-      //     {
-      //       seconds: 'desc',
-      //     },
-      //   ],
-      // });
-
       let gameStart = DateTime.fromJSDate(gameData.startTime);
       let gameEnd = DateTime.fromJSDate(updateGame.stopTime);
       const totalTime = gameEnd
