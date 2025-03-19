@@ -32,6 +32,7 @@ exports.leader_list_get = asyncHandler(async (req, res, next) => {
         seconds: 'asc',
       },
     ],
+    take: 10,
   });
 
   res.json({
