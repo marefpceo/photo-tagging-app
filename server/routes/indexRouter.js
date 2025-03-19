@@ -5,6 +5,9 @@ const indexController = require('../controllers/indexController');
 // GET Image List
 router.get('/image_list', indexController.image_list_get);
 
+// GET Leader List
+router.get('/leader_list/:imageId', indexController.leader_list_get);
+
 // DELETE Quit game
 router.delete('/quit_game', indexController.quit_game_delete);
 

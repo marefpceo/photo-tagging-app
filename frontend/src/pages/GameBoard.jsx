@@ -57,7 +57,7 @@ function GameBoard() {
             setShowEndGameModal(false);
           }
           setEndGameStats(responseData.elapsed_time);
-          setLeaderList([0]);
+          // setLeaderList([0]);
         }
       } catch (error) {
         console.error(error.status);
@@ -80,6 +80,7 @@ function GameBoard() {
     checkLeaderBoard();
   }, [leaderList.length, showEndGameModal]);
 
+  // quitGame function is when user ends game prior to completion
   async function quitGame() {
     try {
       await fetch(`${import.meta.env.VITE_API_BASE_URL}/quit_game`, {
@@ -90,6 +91,12 @@ function GameBoard() {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  // endGame function is when the user completes the game by finding all characters
+  async function endGame() {
+    console.log('End Game function');
+    console.log(newUser);
   }
 
   function toggleMenu() {
@@ -116,6 +123,10 @@ function GameBoard() {
     } else {
       setShowDialogModal(false);
     }
+  }
+
+  function handleChangeEndGameModal(e) {
+    setNewUser(e.target.value);
   }
 
   return (
@@ -182,6 +193,9 @@ function GameBoard() {
         endGameStats={endGameStats}
         imageId={state.imageId}
         isHighScore={isHighScore}
+        handleClick={endGame}
+        handleChange={handleChangeEndGameModal}
+        setLeaderList={setLeaderList}
       />
     </section>
   );

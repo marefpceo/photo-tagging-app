@@ -16,6 +16,19 @@ exports.image_list_get = asyncHandler(async (req, res, next) => {
   });
 });
 
+// Return top 10 users by imageId
+exports.leader_list_get = asyncHandler(async (req, res, next) => {
+  const userList = await prisma.user.findMany({
+    where: {
+      imageId: parseInt(req.params.imageId),
+    },
+  });
+
+  res.json({
+    userList,
+  });
+});
+
 // Handles ending game after finding all characters
 exports.end_game_get = asyncHandler(async (req, res, next) => {
   const userList = await prisma.user.findMany({
