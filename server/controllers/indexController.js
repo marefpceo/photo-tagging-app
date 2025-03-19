@@ -20,8 +20,18 @@ exports.image_list_get = asyncHandler(async (req, res, next) => {
 exports.leader_list_get = asyncHandler(async (req, res, next) => {
   const userList = await prisma.user.findMany({
     where: {
-      imageId: parseInt(req.params.imageId),
+      imageId: {
+        equals: 1,
+      },
     },
+    orderBy: [
+      {
+        minutes: 'asc',
+      },
+      {
+        seconds: 'asc',
+      },
+    ],
   });
 
   res.json({
