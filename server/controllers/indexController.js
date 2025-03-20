@@ -21,7 +21,7 @@ exports.leader_list_get = asyncHandler(async (req, res, next) => {
   const userList = await prisma.user.findMany({
     where: {
       imageId: {
-        equals: 1,
+        equals: parseInt(req.params.imageId),
       },
     },
     orderBy: [
