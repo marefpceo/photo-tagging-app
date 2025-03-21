@@ -53,6 +53,13 @@ exports.end_game_get = asyncHandler(async (req, res, next) => {
   });
 });
 
+// Handles creating new user if score is top 10
+exports.end_game_post = asyncHandler(async (req, res, next) => {
+  res.json({
+    message: 'Game ended',
+  });
+});
+
 // Handles ending the game when the user quits or exits
 exports.quit_game_delete = asyncHandler(async (req, res, next) => {
   await prisma.data.delete({

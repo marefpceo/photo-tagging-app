@@ -14,6 +14,9 @@ router.delete('/quit_game', indexController.quit_game_delete);
 // GET End game
 router.get('/end_game', indexController.end_game_get);
 
+// POST End game
+router.post('/end_game', indexController.end_game_post);
+
 // POST Check selected game image for coordinate match
 router.post('/check_selection', indexController.check_selection);
 
