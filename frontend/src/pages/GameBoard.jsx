@@ -22,7 +22,10 @@ function GameBoard() {
   const [endGameStats, setEndGameStats] = useState({});
   const [leaderList, setLeaderList] = useState([]);
   const [isHighScore, setIsHighScore] = useState(false);
-  const [newUser, setNewUser] = useState({});
+  const [newUser, setNewUser] = useState({
+    username: '',
+    imageId: state.imageId,
+  });
 
   useEffect(() => {
     if (!verify) {
@@ -57,7 +60,10 @@ function GameBoard() {
             setShowEndGameModal(false);
           }
           setEndGameStats(responseData.elapsed_time);
-          // setLeaderList([0]);
+          setNewUser({...newUser,
+            minutes: responseData.elapsed_time.minutes,
+            seconds: responseData.elapsed_time.seconds,
+          });
         }
       } catch (error) {
         console.error(error.status);
@@ -66,7 +72,7 @@ function GameBoard() {
     checkCoordinates();
 
     setVerify(false);
-  }, [verify, character, charactersFound, showEndGameModal, state.imageId]);
+  }, [verify, character, charactersFound, showEndGameModal, state.imageId, newUser]);
 
   useEffect(() => {
     if (showEndGameModal === false) {
@@ -95,8 +101,24 @@ function GameBoard() {
 
   // endGame function is when the user completes the game by finding all characters
   async function endGame() {
+    try {
+      await fetch(`${import.meta.env.VITE_API_BASE_URL}/quit_game`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: {
+          username: newUser.username,
+          imageId: newUser.imageId,
+          minutes: newUser.minutes,
+          seconds: newUser.seconds,
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
     console.log('End Game function');
     console.log(newUser);
+    console.log(endGameStats);
   }
 
   function toggleMenu() {
@@ -126,7 +148,9 @@ function GameBoard() {
   }
 
   function handleChangeEndGameModal(e) {
-    setNewUser(e.target.value);
+    setNewUser({...newUser,
+      username: e.target.value,
+    });
   }
 
   return (
