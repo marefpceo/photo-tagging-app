@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Canvas from '../components/Canvas';
 import DropMenu from '../components/DropMenu';
 import Button from '../components/Button';
@@ -26,6 +26,7 @@ function GameBoard() {
     username: '',
     imageId: state.imageId,
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!verify) {
@@ -102,17 +103,21 @@ function GameBoard() {
   // endGame function is when the user completes the game by finding all characters
   async function endGame() {
     try {
-      await fetch(`${import.meta.env.VITE_API_BASE_URL}/quit_game`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/end_game`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: {
+        body: JSON.stringify({
           username: newUser.username,
           imageId: newUser.imageId,
           minutes: newUser.minutes,
           seconds: newUser.seconds,
-        }
+        }),
       });
+      
+      if (response.ok) {
+        navigate('/');
+      }
     } catch (error) {
       console.error(error);
     }
