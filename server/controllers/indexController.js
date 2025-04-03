@@ -55,8 +55,25 @@ exports.end_game_get = asyncHandler(async (req, res, next) => {
 
 // Handles creating new user if score is top 10
 exports.end_game_post = asyncHandler(async (req, res, next) => {
+  const newUser = await prisma.user.create({
+    data: {
+      username: req.body.username,
+      imageId: req.body.imageId,
+      minutes: req.body.minutes,
+      seconds: req.body.seconds,
+    },
+  });
+
+  await prisma.data.delete({
+    where: {
+      user_id: req.session.user,
+    },
+  });
+  req.session.destroy();
+
   res.json({
     message: 'Game ended',
+    newUser
   });
 });
 
