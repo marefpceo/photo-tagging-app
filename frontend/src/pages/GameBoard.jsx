@@ -7,6 +7,7 @@ import DialogModal from '../components/DialogModal';
 import RulesModal from '../components/RulesModal';
 import EndGameModal from '../components/EndGameModal';
 import CharacterIcons from '../components/CharacterIcons';
+import LeaderBoardModal from '../components/LeaderBoardModal';
 
 function GameBoard() {
   const { state } = useLocation();
@@ -16,6 +17,7 @@ function GameBoard() {
   const [showDialogModal, setShowDialogModal] = useState(false);
   const [showRulesModal, setShowRulesModal] = useState(false);
   const [showEndGameModal, setShowEndGameModal] = useState(false);
+  const [showLeaderBoardModal, setShowLeaderBoardModal] = useState(false);
   const [character, setCharacter] = useState({});
   const [verify, setVerify] = useState(false);
   const [charactersFound, setCharactersFound] = useState([]);
@@ -129,14 +131,13 @@ function GameBoard() {
       const responseData = await response.json();
       if (response.ok) {
         console.log(responseData.message);
-        navigate('/');
+        console.log(leaderList);
+        setShowLeaderBoardModal(true);
+        setShowEndGameModal(false);
       }
     } catch (error) {
       console.error(error);
     }
-    console.log('End Game function');
-    console.log(newUser);
-    console.log(endGameStats);
   }
 
   function toggleMenu() {
@@ -163,6 +164,11 @@ function GameBoard() {
     } else {
       setShowDialogModal(false);
     }
+  }
+
+  function toggleLeaderBoard() {
+    console.log('Leader Board toggle');
+    navigate('/', { replace: true });
   }
 
   function handleChangeEndGameModal(e) {
@@ -236,6 +242,11 @@ function GameBoard() {
         handleClick={endGame}
         handleChange={handleChangeEndGameModal}
         setLeaderList={setLeaderList}
+      />
+      <LeaderBoardModal
+        showLeaderBoardModal={showLeaderBoardModal}
+        leaderList={leaderList}
+        onClick={toggleLeaderBoard}
       />
     </section>
   );
