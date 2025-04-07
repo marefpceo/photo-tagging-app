@@ -23,7 +23,7 @@ function EndGameModal({
 
         const responseData = await response.json();
         if (response.ok) {
-          setLeaderList(responseData);
+          setLeaderList(responseData.userList);
         }
       } catch (error) {
         console.error(error);

@@ -7,6 +7,7 @@ import DialogModal from '../components/DialogModal';
 import RulesModal from '../components/RulesModal';
 import EndGameModal from '../components/EndGameModal';
 import CharacterIcons from '../components/CharacterIcons';
+import LeaderBoardModal from '../components/LeaderBoardModal';
 
 function GameBoard() {
   const { state } = useLocation();
@@ -16,6 +17,7 @@ function GameBoard() {
   const [showDialogModal, setShowDialogModal] = useState(false);
   const [showRulesModal, setShowRulesModal] = useState(false);
   const [showEndGameModal, setShowEndGameModal] = useState(false);
+  const [showLeaderBoardModal, setShowLeaderBoardModal] = useState(false);
   const [character, setCharacter] = useState({});
   const [verify, setVerify] = useState(false);
   const [charactersFound, setCharactersFound] = useState([]);
@@ -61,7 +63,8 @@ function GameBoard() {
             setShowEndGameModal(false);
           }
           setEndGameStats(responseData.elapsed_time);
-          setNewUser({...newUser,
+          setNewUser({
+            ...newUser,
             minutes: responseData.elapsed_time.minutes,
             seconds: responseData.elapsed_time.seconds,
           });
@@ -73,7 +76,14 @@ function GameBoard() {
     checkCoordinates();
 
     setVerify(false);
-  }, [verify, character, charactersFound, showEndGameModal, state.imageId, newUser]);
+  }, [
+    verify,
+    character,
+    charactersFound,
+    showEndGameModal,
+    state.imageId,
+    newUser,
+  ]);
 
   useEffect(() => {
     if (showEndGameModal === false) {
@@ -103,27 +113,31 @@ function GameBoard() {
   // endGame function is when the user completes the game by finding all characters
   async function endGame() {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/end_game`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({
-          username: newUser.username,
-          imageId: newUser.imageId,
-          minutes: newUser.minutes,
-          seconds: newUser.seconds,
-        }),
-      });
-      
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/end_game`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({
+            username: newUser.username,
+            imageId: newUser.imageId,
+            minutes: newUser.minutes,
+            seconds: newUser.seconds,
+          }),
+        },
+      );
+
+      const responseData = await response.json();
       if (response.ok) {
-        navigate('/');
+        console.log(responseData.message);
+        console.log(leaderList);
+        setShowLeaderBoardModal(true);
+        setShowEndGameModal(false);
       }
     } catch (error) {
       console.error(error);
     }
-    console.log('End Game function');
-    console.log(newUser);
-    console.log(endGameStats);
   }
 
   function toggleMenu() {
@@ -152,10 +166,13 @@ function GameBoard() {
     }
   }
 
+  function toggleLeaderBoard() {
+    console.log('Leader Board toggle');
+    navigate('/', { replace: true });
+  }
+
   function handleChangeEndGameModal(e) {
-    setNewUser({...newUser,
-      username: e.target.value,
-    });
+    setNewUser({ ...newUser, username: e.target.value });
   }
 
   return (
@@ -225,6 +242,11 @@ function GameBoard() {
         handleClick={endGame}
         handleChange={handleChangeEndGameModal}
         setLeaderList={setLeaderList}
+      />
+      <LeaderBoardModal
+        showLeaderBoardModal={showLeaderBoardModal}
+        leaderList={leaderList}
+        onClick={toggleLeaderBoard}
       />
     </section>
   );
