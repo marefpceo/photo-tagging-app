@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 import Canvas from '../components/Canvas';
 import DropMenu from '../components/DropMenu';
 import Button from '../components/Button';
@@ -17,12 +17,14 @@ function GameBoard() {
   const [showDialogModal, setShowDialogModal] = useState(false);
   const [showRulesModal, setShowRulesModal] = useState(false);
   const [showEndGameModal, setShowEndGameModal] = useState(false);
-  const [showLeaderBoardModal, setShowLeaderBoardModal] = useState(false);
+  // const [showLeaderBoardModal, setShowLeaderBoardModal] = useState(false);
+  const [showLeaderBoardModal, setShowLeaderBoardModal] = useOutletContext();
   const [character, setCharacter] = useState({});
   const [verify, setVerify] = useState(false);
   const [charactersFound, setCharactersFound] = useState([]);
   const [endGameStats, setEndGameStats] = useState({});
-  const [leaderList, setLeaderList] = useState([]);
+  // const [leaderList, setLeaderList] = useState([]);
+  const [leaderList, setLeaderList] = useOutletContext();
   const [isHighScore, setIsHighScore] = useState(false);
   const [newUser, setNewUser] = useState({
     username: '',

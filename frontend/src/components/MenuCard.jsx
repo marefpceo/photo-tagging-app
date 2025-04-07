@@ -9,6 +9,8 @@ function MenuCard({
   height,
   characters,
   startGame,
+  getLeaderList,
+  toggleLeaderBoard,
 }) {
   const navigate = useNavigate();
 
@@ -56,6 +58,10 @@ function MenuCard({
           className={
             'h-10 w-28 rounded-md bg-sky-500 p-1 font-bold text-white shadow-md shadow-slate-400'
           }
+          onClick={() => {
+            getLeaderList(id);
+            toggleLeaderBoard();
+          }}
         />
       </div>
     </div>

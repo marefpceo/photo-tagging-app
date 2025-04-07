@@ -17,15 +17,18 @@ function LeaderBoardModal({ showLeaderBoardModal, leaderList, onClick }) {
             </tr>
           </thead>
           <tbody>
-            {leaderList.map((leader) => (
-              <tr key={leader.id}>
-                <td>{leader.username}</td>
-                <td>
-                  {leader.minutes}:
-                  {leader.seconds < 10 ? '0' + leader.seconds : leader.seconds}
-                </td>
-              </tr>
-            ))}
+            {!leaderList &&
+              leaderList.map((leader) => (
+                <tr key={leader.id}>
+                  <td>{leader.username}</td>
+                  <td>
+                    {leader.minutes}:
+                    {leader.seconds < 10
+                      ? '0' + leader.seconds
+                      : leader.seconds}
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
 
