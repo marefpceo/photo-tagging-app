@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
 import MenuCard from '../components/MenuCard';
 import LeaderBoardModal from '../components/LeaderBoardModal';
-import { useOutletContext } from 'react-router-dom';
 
 function GameMenu() {
   const [gameImages, setGameImages] = useState([]);
-  const [leaderList, setLeaderList] = useOutletContext();
-  const [showLeaderBoardModal, setShowLeaderBoardModal] = useOutletContext();
+  const [leaderList, setLeaderList] = useState([]);
+  const [showLeaderBoardModal, setShowLeaderBoardModal] = useState(false);
 
   useEffect(() => {
     async function getImageList() {
@@ -34,7 +33,7 @@ function GameMenu() {
       console.log(responseData);
 
       if (response.ok) {
-        setLeaderList(responseData);
+        setLeaderList(responseData.userList);
       }
     } catch (error) {
       console.error(error);
@@ -95,7 +94,7 @@ function GameMenu() {
       <LeaderBoardModal
         showLeaderBoardModal={showLeaderBoardModal}
         leaderList={leaderList}
-        toggleLeaderBoard={toggleLeaderBoard}
+        onClick={toggleLeaderBoard}
       />
     </section>
   );

@@ -9,16 +9,18 @@ function LeaderBoardModal({ showLeaderBoardModal, leaderList, onClick }) {
       <div className='relative z-50 mx-auto flex h-fit w-1/4 flex-col justify-evenly rounded-md border bg-white shadow-md shadow-gray-500'>
         <h2>Leader Board</h2>
 
-        <table className='my-3 -ml-8 justify-between'>
-          <thead>
-            <tr>
-              <th className='text-center'>User</th>
-              <th>Time</th>
-            </tr>
-          </thead>
-          <tbody>
-            {!leaderList &&
-              leaderList.map((leader) => (
+        {leaderList.length === 0 ? (
+          <p>No High Score. Be the first!</p>
+        ) : (
+          <table className='my-3 -ml-8 justify-between'>
+            <thead>
+              <tr>
+                <th className='text-center'>User</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              {leaderList.map((leader) => (
                 <tr key={leader.id}>
                   <td>{leader.username}</td>
                   <td>
@@ -29,8 +31,9 @@ function LeaderBoardModal({ showLeaderBoardModal, leaderList, onClick }) {
                   </td>
                 </tr>
               ))}
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        )}
 
         <Button
           type={'button'}
