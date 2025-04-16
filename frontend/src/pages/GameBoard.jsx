@@ -28,6 +28,7 @@ function GameBoard() {
     username: '',
     imageId: state.imageId,
   });
+  const [inProgress, setInProgress] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -187,7 +188,7 @@ function GameBoard() {
 
   function toggleLeaderBoard() {
     console.log('Leader Board toggle');
-    navigate('/', { replace: true });
+    navigate('/', { replace: false });
   }
 
   function handleChangeEndGameModal(e) {
@@ -265,6 +266,8 @@ function GameBoard() {
       <LeaderBoardModal
         showLeaderBoardModal={showLeaderBoardModal}
         leaderList={leaderList}
+        inProgress={inProgress}
+        setInProgress={setInProgress}
         onClick={toggleLeaderBoard}
       />
     </section>
