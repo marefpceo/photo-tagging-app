@@ -218,7 +218,6 @@ exports.game_image_post = asyncHandler(async (req, res, next) => {
     },
   });
 
-  console.log(req.session.id);
   res.json({
     message: 'Game started at: ' + userDataCreate.startTime,
     currentGameImage: currentGameImage.id,
