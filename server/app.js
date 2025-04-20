@@ -8,6 +8,7 @@ const { PrismaClient } = require('@prisma/client');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const helmet = require('helmet');
 const cors = require('cors');
 
 const indexRouter = require('./routes/indexRouter');
@@ -18,6 +19,13 @@ const corsOptions = {
   origin: 'http://localhost:5173',
   credentials: true,
 };
+
+app.use(helmet());
+
+app.use(function (req, res, next) {
+  res.setHeader('Cross-Origin-Resource-Policy', 'same-site');
+  next();
+});
 
 app.use(cors(corsOptions));
 app.use(logger('dev'));
