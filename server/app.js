@@ -20,6 +20,8 @@ const corsOptions = {
   credentials: true,
 };
 
+app.disable('x-powered-by');
+
 app.use(helmet());
 
 app.use(function (req, res, next) {
