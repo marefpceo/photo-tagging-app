@@ -12,6 +12,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 
 const indexRouter = require('./routes/indexRouter');
+const compression = require('compression');
 
 const app = express();
 
@@ -23,6 +24,7 @@ const corsOptions = {
 app.disable('x-powered-by');
 
 app.use(helmet());
+app.use(compression());
 
 app.use(function (req, res, next) {
   res.setHeader('Cross-Origin-Resource-Policy', 'same-site');
