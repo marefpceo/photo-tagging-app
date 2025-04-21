@@ -85,7 +85,10 @@ exports.end_game_post = [
         user_id: req.session.user,
       },
     });
-    req.session.destroy();
+    
+    if (req.session) {
+      req.session.destroy();
+    }
 
     res.json({
       message: 'Game ended',

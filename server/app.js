@@ -15,9 +15,14 @@ const indexRouter = require('./routes/indexRouter');
 const app = express();
 
 const corsOptions = {
-  origin: 'http://localhost:5173',
   credentials: true,
 };
+
+if (process.env.NODE_ENV === 'development') {
+  corsOptions.origin = 'http://localhost:5173';
+} else {
+  corsOptions.origin = 'http://localhost:4173'
+}
 
 app.use(cors(corsOptions));
 app.use(logger('dev'));
