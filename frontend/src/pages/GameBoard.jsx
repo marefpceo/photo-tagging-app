@@ -28,6 +28,7 @@ function GameBoard() {
     username: '',
     imageId: state.imageId,
   });
+  const [inProgress, setInProgress] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -84,6 +85,25 @@ function GameBoard() {
     state.imageId,
     newUser,
   ]);
+
+  // Get leaderlist
+  useEffect(() => {
+    async function getLeaderList() {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL}/leader_list/${state.imageId}`,
+        );
+
+        const responseData = await response.json();
+        if (response.ok) {
+          setLeaderList(responseData.userList);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getLeaderList();
+  }, [showEndGameModal, setLeaderList, state.imageId, showLeaderBoardModal]);
 
   useEffect(() => {
     if (showEndGameModal === false) {
@@ -168,7 +188,7 @@ function GameBoard() {
 
   function toggleLeaderBoard() {
     console.log('Leader Board toggle');
-    navigate('/', { replace: true });
+    navigate('/', { replace: false });
   }
 
   function handleChangeEndGameModal(e) {
@@ -246,6 +266,8 @@ function GameBoard() {
       <LeaderBoardModal
         showLeaderBoardModal={showLeaderBoardModal}
         leaderList={leaderList}
+        inProgress={inProgress}
+        setInProgress={setInProgress}
         onClick={toggleLeaderBoard}
       />
     </section>

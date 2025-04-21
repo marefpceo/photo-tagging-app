@@ -1,37 +1,12 @@
-import { useEffect } from 'react';
 import Button from './Button';
 
 function EndGameModal({
   showEndGameModal,
   endGameStats,
-  imageId,
   isHighScore,
   handleClick,
   handleChange,
-  setLeaderList,
 }) {
-  // Get leaderlist
-  useEffect(() => {
-    if (showEndGameModal === false) {
-      return;
-    }
-    async function getLeaderList() {
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_BASE_URL}/leader_list/${imageId}`,
-        );
-
-        const responseData = await response.json();
-        if (response.ok) {
-          setLeaderList(responseData.userList);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    getLeaderList();
-  }, [showEndGameModal, imageId, setLeaderList]);
-
   return (
     <div
       className='absolute z-40 row-span-2 mt-2 h-full w-full flex-col justify-center bg-gray-200 bg-opacity-85'
