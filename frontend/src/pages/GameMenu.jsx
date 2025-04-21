@@ -30,7 +30,6 @@ function GameMenu() {
       );
 
       const responseData = await response.json();
-      console.log(responseData);
 
       if (response.ok) {
         setLeaderList(responseData.userList);
