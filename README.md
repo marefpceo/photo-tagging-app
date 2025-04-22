@@ -2,6 +2,8 @@
 
 ## [Changelog](/CHANGELOG.md)
 
+## Table of Contents
+
 ### Introduction
 Where's Waldo: Photo Tagging App is a full stack application based off of the popular, Where's Waldo (Wally) game. The objective of the project is to create the application utilizing skills learned to create the frontend and backend while utilizing a relational database to store data content. 
 
@@ -11,3 +13,11 @@ Where's Waldo: Photo Tagging App is a full stack application based off of the po
 * [React](https://react.dev/) is a free and open-source front-end JavaScript library for building user interfaces based on components by Facebook Inc. React can be used to develop single-page, mobile, or server-rendered applications.
 
 * [Tailwind CSS](https://tailwindcss.com/) is a utility-first CSS framework for rapidly building modern websites without ever leaving your HTML.
+
+* [Express JS](https://expressjs.com/) or simply Express, is a back end web application framework for building RESTful APIs with Node.js.
+
+* [NodeJS](https://nodejs.org/) is a cross-platform, open-source JavaScript runtime environment that can run on Windows, Linux, Unix, macOS, and more.
+
+### Installation
+
+1. 
