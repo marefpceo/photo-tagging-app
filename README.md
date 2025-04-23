@@ -1,13 +1,21 @@
 # Where's Waldo: Photo Tagging App
 
-## [Changelog](/CHANGELOG.md)
+### [Changelog](/CHANGELOG.md)
 
-## Table of Contents
+<details>
 
-### Introduction
+<summary>Table of Contents</summary>
+
+1. [Introduction](#introduction-intro-1)
+2. [Technologies Used](#technologies-used)
+3. [Installation](#installation)
+
+</details>
+
+### 1. Introduction
 Where's Waldo: Photo Tagging App is a full stack application based off of the popular, Where's Waldo (Wally) game. The objective of the project is to create the application utilizing skills learned to create the frontend and backend while utilizing a relational database to store data content. 
 
-### Technologies Used
+### 2. Technologies Used
 * [Vite](https://vite.dev/) is a blazing fast frontend build tool powering the next generation of web applications.
 
 * [React](https://react.dev/) is a free and open-source front-end JavaScript library for building user interfaces based on components by Facebook Inc. React can be used to develop single-page, mobile, or server-rendered applications.
@@ -18,6 +26,9 @@ Where's Waldo: Photo Tagging App is a full stack application based off of the po
 
 * [NodeJS](https://nodejs.org/) is a cross-platform, open-source JavaScript runtime environment that can run on Windows, Linux, Unix, macOS, and more.
 
-### Installation
+### 3. Gameplay
 
-1. 
+[Photo Tagging App - LIve Link]()
+
+The object of the game is to 
+ 
