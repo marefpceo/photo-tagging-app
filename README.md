@@ -1,16 +1,24 @@
 # Where's Waldo: Photo Tagging App
 
-### [Changelog](/CHANGELOG.md)
+<center style='font-size:12pt'>
+
+<a href='/CHANGELOG.md'>Changelog</a> &nbsp;&nbsp; &bullet; &nbsp;&nbsp; <a href='#'>Photo Tagging App - Live Link</a>
+
+</center>
+
+---
 
 <details>
 
-<summary>Table of Contents</summary>
+<summary style='font-size:14pt;font-weight:bold'>Table of Contents</summary>
 
 1. [Introduction](#introduction-intro-1)
 2. [Technologies Used](#technologies-used)
-3. [Installation](#installation)
+3. [Gameplay](#installation)
 
 </details>
+
+---
 
 ### 1. Introduction
 Where's Waldo: Photo Tagging App is a full stack application based off of the popular, Where's Waldo (Wally) game. The objective of the project is to create the application utilizing skills learned to create the frontend and backend while utilizing a relational database to store data content. 
@@ -30,5 +38,7 @@ Where's Waldo: Photo Tagging App is a full stack application based off of the po
 
 [Photo Tagging App - LIve Link]()
 
-The object of the game is to 
+The object of the game is to find all of the characters using the least amount of time possible. 
+
+
  
