@@ -17,19 +17,22 @@ const compression = require('compression');
 const app = express();
 
 const corsOptions = {
-  origin: 'http://localhost:5173',
   credentials: true,
 };
 
 app.disable('x-powered-by');
 
-app.use(helmet());
+app.use(
+  helmet({
+    crossOriginResourcePolicy: { policy: 'cross-site' },
+  }),
+);
 app.use(compression());
 
-app.use(function (req, res, next) {
-  res.setHeader('Cross-Origin-Resource-Policy', 'same-site');
-  next();
-});
+// app.use(function (req, res, next) {
+//   res.setHeader('Cross-Origin-Resource-Policy', 'same-origin');
+//   next();
+// });
 
 app.use(cors(corsOptions));
 app.use(logger('dev'));
