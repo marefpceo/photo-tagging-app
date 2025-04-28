@@ -24,7 +24,12 @@ app.disable('x-powered-by');
 
 app.use(
   helmet({
-    crossOriginResourcePolicy: { policy: 'cross-site' },
+    contentSecurityPolicy: {
+      directives: {
+        imgSrc: ["'self'", 'railway.app'],
+      },
+    },
+    crossOriginResourcePolicy: false,
   }),
 );
 app.use(compression());
