@@ -29,9 +29,7 @@ app.use(
         imgSrc: ["'self'", 'railway.app'],
       },
     },
-    crossOriginResourcePolicy: {
-      policy: 'same-site',
-    },
+    crossOriginResourcePolicy: false,
   }),
 );
 app.use(compression());
