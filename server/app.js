@@ -17,7 +17,7 @@ const compression = require('compression');
 const app = express();
 
 const corsOptions = {
-  origin: ['http://localhost:5173', 'railway.app'],
+  origin: ['http://localhost:5173', '*/railway.app'],
   credentials: true,
 };
 
@@ -30,7 +30,9 @@ app.use(
         imgSrc: ["'self'", 'railway.app'],
       },
     },
-    crossOriginResourcePolicy: false,
+    crossOriginResourcePolicy: {
+      policy: 'same-origin',
+    },
   }),
 );
 app.use(compression());
