@@ -10,6 +10,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
+const allowedOrigins = require('./corsOptions');
 
 const indexRouter = require('./routes/indexRouter');
 const compression = require('compression');
@@ -17,6 +18,7 @@ const compression = require('compression');
 const app = express();
 
 const corsOptions = {
+  origin: allowedOrigins,
   credentials: true,
 };
 
@@ -24,23 +26,11 @@ app.disable('x-powered-by');
 
 app.use(
   helmet({
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],
-        imgSrc: ["'self'", 'railway.app'],
-      },
-    },
-    crossOriginResourcePolicy: false,
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
   }),
 );
 app.use(compression());
-
-// app.use(function (req, res, next) {
-//   res.setHeader('Cross-Origin-Resource-Policy', 'same-origin');
-//   next();
-// });
-
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
