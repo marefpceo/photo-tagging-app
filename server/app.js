@@ -20,13 +20,26 @@ const app = express();
 const corsOptions = {
   origin: allowedOrigins,
   credentials: true,
+  maxAge: 300,
+  optionsSuccessStatus: 204,
 };
 
 app.disable('x-powered-by');
 
 app.use(
   helmet({
+    contentSecurityPolicy: {
+      useDefaults: false,
+      directives: {
+        defaultSrc: [
+          "'self'",
+          /\.photo-tagging-app\.pages\.dev$/,
+          'http://localhost:3000',
+        ],
+      },
+    },
     crossOriginResourcePolicy: { policy: 'cross-origin' },
+    crossOriginOpenerPolicy: { policy: 'same-origin' },
   }),
 );
 app.use(compression());
@@ -41,6 +54,8 @@ app.use(
   expressSession({
     cookie: {
       maxAge: 1 * 60 * 60 * 1000,
+      secure: true,
+      httpOnly: false,
     },
     secret: process.env.COOKIE_SECRET,
     resave: false,
@@ -61,10 +76,11 @@ app.use(function (req, res, next) {
 });
 
 // Error Handler
-app.use(function (err, req, res, next) {
+app.use(function (err, req, res) {
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : err.status;
+  // res.locals.error = req.app.get('env') === 'development' ? err : err.status;
+  res.locals.error = err;
 
   // render the error page
   res.status(err.status || 500);
