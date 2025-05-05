@@ -54,7 +54,6 @@ app.use(
   expressSession({
     cookie: {
       maxAge: 1 * 60 * 60 * 1000,
-      secure: true,
       httpOnly: false,
     },
     secret: process.env.COOKIE_SECRET,
