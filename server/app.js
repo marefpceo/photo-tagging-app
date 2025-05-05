@@ -35,7 +35,7 @@ app.use(
           "'self'",
           /\.photo-tagging-app\.pages\.dev$/,
           'http://localhost:3000',
-          /\.railway.app/,
+          /\.railway.app$/,
           'http://localhost:5173',
         ],
       },
