@@ -110,6 +110,7 @@ exports.quit_game_delete = asyncHandler(async (req, res, next) => {
 
 // Verify if selected coordinates match with characters
 exports.check_selection = asyncHandler(async (req, res, next) => {
+  const sessionUserId = req.session.user;
   const characterInfo = await prisma.character.findUnique({
     where: {
       id: parseInt(req.body.characterId),
@@ -118,7 +119,7 @@ exports.check_selection = asyncHandler(async (req, res, next) => {
 
   const gameData = await prisma.data.findUnique({
     where: {
-      user_id: req.session.user,
+      user_id: sessionUserId,
     },
   });
 
@@ -140,7 +141,7 @@ exports.check_selection = asyncHandler(async (req, res, next) => {
   } else {
     const updateFoundCharacter = await prisma.data.update({
       where: {
-        user_id: req.session.user,
+        user_id: sessionUserId,
       },
       data: {
         foundCharacters: {
@@ -152,7 +153,7 @@ exports.check_selection = asyncHandler(async (req, res, next) => {
     if (gameData.characterCount === gameData.foundCharacters.length + 1) {
       const updateGame = await prisma.data.update({
         where: {
-          user_id: req.session.user,
+          user_id: sessionUserId,
         },
         data: {
           stopTime: DateTime.now().toISO(),
