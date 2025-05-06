@@ -1,6 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const { body, validationResult } = require('express-validator');
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient } = require('../prisma/generated/client');
 const prisma = new PrismaClient();
 const { DateTime } = require('luxon');
 
