@@ -57,6 +57,7 @@ app.use(
     cookie: {
       maxAge: 1 * 60 * 60 * 1000,
       httpOnly: true,
+      secure: false,
     },
     secret: process.env.COOKIE_SECRET,
     resave: false,
