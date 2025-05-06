@@ -1,0 +1,56 @@
+generator client {
+  provider        = "prisma-client-js"
+  output          = "./generated/client"
+  previewFeatures = ["fullTextSearchPostgres"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Character {
+  id             Int        @id @default(autoincrement())
+  character_name String
+  icon_location  String
+  xCoordinate    Int
+  yCoordinate    Int
+  game_image     Game_image @relation(fields: [imageId], references: [id])
+  imageId        Int
+}
+
+model User {
+  id         Int        @id @default(autoincrement())
+  username   String
+  minutes    Int
+  seconds    Int
+  game_image Game_image @relation(fields: [imageId], references: [id])
+  imageId    Int
+}
+
+model Game_image {
+  id             Int         @id @default(autoincrement())
+  image_location String
+  title          String
+  width          Int
+  height         Int
+  characters     Character[]
+  game_leaders   User[]
+}
+
+model Data {
+  id              Int       @id @default(autoincrement())
+  user_id         String    @unique
+  startTime       DateTime?
+  stopTime        DateTime?
+  imageId         Int?
+  characterCount  Int?
+  foundCharacters Int[]     @unique
+}
+
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String   @db.Text
+  expiresAt DateTime
+}
