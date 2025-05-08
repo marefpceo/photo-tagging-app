@@ -1,0 +1,242 @@
+const asyncHandler = require('express-async-handler');
+const { body, validationResult } = require('express-validator');
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
+const { DateTime } = require('luxon');
+
+// Return all image game images
+exports.image_list_get = asyncHandler(async (req, res, next) => {
+  const image_list = await prisma.game_image.findMany({
+    include: {
+      characters: true,
+    },
+  });
+
+  res.json({
+    image_list,
+  });
+});
+
+// Return top 10 users by imageId
+exports.leader_list_get = asyncHandler(async (req, res, next) => {
+  const userList = await prisma.user.findMany({
+    where: {
+      imageId: {
+        equals: parseInt(req.params.imageId),
+      },
+    },
+    orderBy: [
+      {
+        minutes: 'asc',
+      },
+      {
+        seconds: 'asc',
+      },
+    ],
+    take: 10,
+  });
+
+  res.json({
+    userList,
+  });
+});
+
+// Handles ending game after finding all characters
+exports.end_game_get = asyncHandler(async (req, res, next) => {
+  const userList = await prisma.user.findMany({
+    where: {
+      imageId: parseInt(req.body.imageId),
+    },
+  });
+
+  res.json({
+    userList,
+  });
+});
+
+// Handles creating new user if score is top 10
+exports.end_game_post = [
+  body('username')
+    .trim()
+    .isAlphanumeric()
+    .withMessage('Letters and numbers only')
+    .escape(),
+
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+    const newUser = await prisma.user.create({
+      data: {
+        username: req.body.username,
+        imageId: req.body.imageId,
+        minutes: req.body.minutes,
+        seconds: req.body.seconds,
+      },
+    });
+
+    if (!errors.isEmpty()) {
+      res.json({
+        errors: errors.array(),
+      });
+      return;
+    }
+
+    await prisma.data.delete({
+      where: {
+        user_id: req.session.user,
+      },
+    });
+    req.session.destroy();
+
+    res.json({
+      message: 'Game ended',
+      newUser,
+    });
+  }),
+];
+
+// Handles ending the game when the user quits or exits
+exports.quit_game_delete = asyncHandler(async (req, res, next) => {
+  await prisma.data.delete({
+    where: {
+      user_id: req.session.user,
+    },
+  });
+  req.session.destroy();
+
+  res.json({
+    message: 'User ended game',
+  });
+});
+
+// Verify if selected coordinates match with characters
+exports.check_selection = asyncHandler(async (req, res, next) => {
+  const characterInfo = await prisma.character.findUnique({
+    where: {
+      id: parseInt(req.body.characterId),
+    },
+  });
+
+  const gameData = await prisma.data.findUnique({
+    where: {
+      user_id: req.session.user,
+    },
+  });
+
+  const checkRange = Math.floor(
+    Math.sqrt(
+      (req.body.xCoord - characterInfo.xCoordinate) ** 2 +
+        (req.body.yCoord - characterInfo.yCoordinate) ** 2,
+    ),
+  );
+
+  const duplicateFinds = gameData.foundCharacters.includes(
+    parseInt(req.body.characterId),
+  );
+
+  if (checkRange > 30 || duplicateFinds === true) {
+    res.json({
+      message: 'Incorrect selection',
+    });
+  } else {
+    const updateFoundCharacter = await prisma.data.update({
+      where: {
+        user_id: req.session.user,
+      },
+      data: {
+        foundCharacters: {
+          push: parseInt(req.body.characterId),
+        },
+      },
+    });
+
+    if (gameData.characterCount === gameData.foundCharacters.length + 1) {
+      const updateGame = await prisma.data.update({
+        where: {
+          user_id: req.session.user,
+        },
+        data: {
+          stopTime: DateTime.now().toISO(),
+        },
+      });
+
+      let gameStart = DateTime.fromJSDate(gameData.startTime);
+      let gameEnd = DateTime.fromJSDate(updateGame.stopTime);
+      const totalTime = gameEnd
+        .diff(gameStart, ['minutes', 'seconds'])
+        .toObject();
+
+      res.json({
+        message: 'You Win',
+        start: gameData.startTime,
+        finished: updateGame.stopTime,
+        elapsed_time: totalTime,
+        input: {
+          characterId: req.body.characterId,
+          xCoord: req.body.xCoord,
+          yCoord: req.body.yCoord,
+        },
+        isGameOver: true,
+      });
+    } else {
+      res.json({
+        message: `You have found ${characterInfo.character_name}`,
+        characterInfo,
+        checkRange,
+        input: {
+          characterId: req.body.characterId,
+          xCoord: req.body.xCoord,
+          yCoord: req.body.yCoord,
+        },
+        updateFoundCharacter,
+      });
+    }
+  }
+});
+
+// Return selected game image
+exports.game_image_get = asyncHandler(async (req, res, next) => {
+  const game_image = await prisma.game_image.findUnique({
+    where: {
+      id: parseInt(req.params.gameImageId),
+    },
+    include: {
+      characters: true,
+      game_leaders: true,
+    },
+  });
+
+  res.json({
+    game_image,
+  });
+});
+
+// Initializes and starts game
+exports.game_image_post = asyncHandler(async (req, res, next) => {
+  req.session.user = req.session.id;
+  req.session.save();
+  const sessionId = req.session.id;
+  const currentGameImage = await prisma.game_image.findUnique({
+    where: {
+      id: parseInt(req.params.gameImageId),
+    },
+    include: {
+      _count: {
+        select: { characters: true },
+      },
+    },
+  });
+
+  const userDataCreate = await prisma.data.create({
+    data: {
+      user_id: sessionId,
+      startTime: DateTime.now().toISO(),
+      imageId: parseInt(req.params.gameImageId),
+      characterCount: currentGameImage._count.characters,
+    },
+  });
+
+  res.json({
+    message: 'Game started at: ' + userDataCreate.startTime,
+    currentGameImage: currentGameImage.id,
+  });
+});
