@@ -2,7 +2,7 @@
 
 <center style='font-size:12pt'>
 
-<a href='/CHANGELOG.md'>Changelog</a> &nbsp;&nbsp; &bullet; &nbsp;&nbsp; <a href='#'>Photo Tagging App - Live Link</a>
+<a href='/CHANGELOG.md'>Changelog</a> &nbsp;&nbsp; &bullet; &nbsp;&nbsp; <a href='https://main.photo-tagging-app.pages.dev'>Photo Tagging App - Live Link</a>
 
 </center>
 
@@ -36,7 +36,7 @@ Where's Waldo: Photo Tagging App is a full stack application based off of the po
 
 ### 3. Gameplay
 
-[Photo Tagging App - LIve Link]()
+[Photo Tagging App - Live Link](https://main.photo-tagging-app.pages.dev)
 
 The object of the game is to find all of the characters using the least amount of time possible. 
 
