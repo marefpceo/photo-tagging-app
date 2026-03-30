@@ -12,32 +12,32 @@
     "prepare": "cd .. && husky server/.husky"
   },
   "dependencies": {
-    "@prisma/client": "^6.7.0",
-    "@quixo3/prisma-session-store": "^3.1.13",
-    "compression": "^1.8.0",
-    "cookie-parser": "~1.4.4",
-    "cors": "^2.8.5",
+    "@prisma/client": "^6.19.2",
+    "@quixo3/prisma-session-store": "^3.1.19",
+    "compression": "^1.8.1",
+    "cookie-parser": "~1.4.7",
+    "cors": "^2.8.6",
     "debug": "~2.6.9",
-    "dotenv": "^16.4.5",
-    "express": "^4.21.1",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.1",
     "express-async-handler": "^1.2.0",
-    "express-session": "^1.18.1",
-    "express-validator": "^7.2.1",
+    "express-session": "^1.19.0",
+    "express-validator": "^7.3.1",
     "helmet": "^8.1.0",
-    "http-errors": "^2.0.0",
-    "luxon": "^3.5.0",
-    "morgan": "~1.9.1"
+    "http-errors": "^2.0.1",
+    "luxon": "^3.7.2",
+    "morgan": "~1.10.1"
   },
   "devDependencies": {
-    "@eslint/js": "^9.13.0",
-    "eslint": "^9.13.0",
-    "eslint-config-prettier": "^9.1.0",
-    "globals": "^15.11.0",
-    "husky": "^9.1.6",
-    "lint-staged": "^15.2.10",
-    "nodemon": "^3.1.7",
-    "prettier": "3.3.3",
-    "prisma": "^6.7.0"
+    "@eslint/js": "^9.39.4",
+    "eslint": "^9.39.4",
+    "eslint-config-prettier": "^9.1.2",
+    "globals": "^15.15.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.2",
+    "nodemon": "^3.1.14",
+    "prettier": "3.8.1",
+    "prisma": "^6.19.2"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
