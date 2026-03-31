@@ -4,4 +4,4 @@ const allowedOrigins = [
   /.*\.photo-tagging-app\.pages\.dev.*/,
 ];
 
-module.exports = allowedOrigins;
+export default allowedOrigins;

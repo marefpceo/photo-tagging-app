@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "private": true,
+  "type": "module",
   "prisma": {
     "seed": "node prisma/seed.js"
   },
@@ -12,14 +13,15 @@
     "prepare": "cd .. && husky server/.husky"
   },
   "dependencies": {
-    "@prisma/client": "^6.19.2",
+    "@prisma/adapter-pg": "^7.6.0",
+    "@prisma/client": "^7.6.0",
     "@quixo3/prisma-session-store": "^3.1.19",
     "compression": "^1.8.1",
     "cookie-parser": "~1.4.7",
     "cors": "^2.8.6",
     "debug": "~2.6.9",
-    "dotenv": "^16.6.1",
-    "express": "^4.22.1",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
     "express-async-handler": "^1.2.0",
     "express-session": "^1.19.0",
     "express-validator": "^7.3.1",
@@ -37,7 +39,7 @@
     "lint-staged": "^15.5.2",
     "nodemon": "^3.1.14",
     "prettier": "3.8.1",
-    "prisma": "^6.19.2"
+    "prisma": "^7.6.0"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"

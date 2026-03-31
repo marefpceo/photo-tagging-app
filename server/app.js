@@ -1,19 +1,23 @@
-require('dotenv').config();
+// require('dotenv').config();
+import 'dotenv/config';
 
-const createError = require('http-errors');
-const express = require('express');
-const expressSession = require('express-session');
-const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
-const { PrismaClient } = require('@prisma/client');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const helmet = require('helmet');
-const cors = require('cors');
-const allowedOrigins = require('./corsOptions');
+import createError from 'http-errors';
+import express from 'express';
+import expressSession from 'express-session';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
+import helmet from 'helmet';
+import cors from 'cors';
+import allowedOrigins from './corsOptions.js';
 
-const indexRouter = require('./routes/indexRouter');
-const compression = require('compression');
+import { PrismaSessionStore } from '@quixo3/prisma-session-store';
+import { PrismaClient } from './generated/prisma/client.ts';
+import { PrismaPg } from '@prisma/adapter-pg';
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+const prisma = new PrismaClient({ adapter });
+
+import indexRouter from './routes/indexRouter.js';
+import compression from 'compression';
 
 const app = express();
 
@@ -51,7 +55,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('public'));
 
 app.use(
   expressSession({
@@ -64,7 +68,7 @@ app.use(
     secret: process.env.COOKIE_SECRET,
     resave: false,
     saveUninitialized: false,
-    store: new PrismaSessionStore(new PrismaClient(), {
+    store: new PrismaSessionStore(prisma, {
       checkPeriod: 2 * 60 * 1000,
       dbRecordIdIsSessionId: true,
       dbRecordIdFunction: undefined,
@@ -91,4 +95,4 @@ app.use(function (err, req, res) {
   res.json('error');
 });
 
-module.exports = app;
+export default app;
