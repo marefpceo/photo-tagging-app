@@ -1,10 +1,14 @@
-const asyncHandler = require('express-async-handler');
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
-const { DateTime } = require('luxon');
+import { body, validationResult } from 'express-validator';
+import { DateTime } from 'luxon';
+
+import { PrismaClient } from '../generated/prisma/client.ts';
+import { PrismaPg } from '@prisma/adapter-pg';
+
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+const prisma = new PrismaClient({ adapter });
 
 // Return all image game images
-exports.image_list_get = asyncHandler(async (req, res, next) => {
+async function image_list_get(req, res) {
   const image_list = await prisma.game_image.findMany({
     include: {
       characters: true,
@@ -14,10 +18,10 @@ exports.image_list_get = asyncHandler(async (req, res, next) => {
   res.json({
     image_list,
   });
-});
+}
 
 // Return top 10 users by imageId
-exports.leader_list_get = asyncHandler(async (req, res, next) => {
+async function leader_list_get(req, res) {
   const userList = await prisma.user.findMany({
     where: {
       imageId: {
@@ -38,10 +42,10 @@ exports.leader_list_get = asyncHandler(async (req, res, next) => {
   res.json({
     userList,
   });
-});
+}
 
 // Handles ending game after finding all characters
-exports.end_game_get = asyncHandler(async (req, res, next) => {
+async function end_game_get(req, res) {
   const userList = await prisma.user.findMany({
     where: {
       imageId: parseInt(req.body.imageId),
@@ -51,10 +55,19 @@ exports.end_game_get = asyncHandler(async (req, res, next) => {
   res.json({
     userList,
   });
-});
+}
 
 // Handles creating new user if score is top 10
-exports.end_game_post = asyncHandler(async (req, res, next) => {
+async function end_game_post(req, res) {
+  const validateRules = [
+    body('username')
+      .trim()
+      .isAlphanumeric()
+      .withMessage('Letters and numbers only')
+      .escape(),
+  ];
+
+  const errors = validationResult(validateRules);
   const newUser = await prisma.user.create({
     data: {
       username: req.body.username,
@@ -63,6 +76,13 @@ exports.end_game_post = asyncHandler(async (req, res, next) => {
       seconds: req.body.seconds,
     },
   });
+
+  if (!errors.isEmpty()) {
+    res.json({
+      errors: errors.array(),
+    });
+    return;
+  }
 
   await prisma.data.delete({
     where: {
@@ -73,12 +93,12 @@ exports.end_game_post = asyncHandler(async (req, res, next) => {
 
   res.json({
     message: 'Game ended',
-    newUser
+    newUser,
   });
-});
+}
 
 // Handles ending the game when the user quits or exits
-exports.quit_game_delete = asyncHandler(async (req, res, next) => {
+async function quit_game_delete(req, res) {
   await prisma.data.delete({
     where: {
       user_id: req.session.user,
@@ -89,10 +109,10 @@ exports.quit_game_delete = asyncHandler(async (req, res, next) => {
   res.json({
     message: 'User ended game',
   });
-});
+}
 
 // Verify if selected coordinates match with characters
-exports.check_selection = asyncHandler(async (req, res, next) => {
+async function check_selection(req, res) {
   const characterInfo = await prisma.character.findUnique({
     where: {
       id: parseInt(req.body.characterId),
@@ -174,10 +194,10 @@ exports.check_selection = asyncHandler(async (req, res, next) => {
       });
     }
   }
-});
+}
 
 // Return selected game image
-exports.game_image_get = asyncHandler(async (req, res, next) => {
+async function game_image_get(req, res) {
   const game_image = await prisma.game_image.findUnique({
     where: {
       id: parseInt(req.params.gameImageId),
@@ -191,10 +211,10 @@ exports.game_image_get = asyncHandler(async (req, res, next) => {
   res.json({
     game_image,
   });
-});
+}
 
 // Initializes and starts game
-exports.game_image_post = asyncHandler(async (req, res, next) => {
+async function game_image_post(req, res) {
   req.session.user = req.session.id;
   req.session.save();
   const sessionId = req.session.id;
@@ -218,9 +238,19 @@ exports.game_image_post = asyncHandler(async (req, res, next) => {
     },
   });
 
-  console.log(req.session.id);
   res.json({
     message: 'Game started at: ' + userDataCreate.startTime,
     currentGameImage: currentGameImage.id,
   });
-});
+}
+
+export default {
+  image_list_get,
+  leader_list_get,
+  end_game_get,
+  end_game_post,
+  quit_game_delete,
+  check_selection,
+  game_image_get,
+  game_image_post,
+};

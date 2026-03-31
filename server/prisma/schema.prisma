@@ -1,11 +1,10 @@
 generator client {
-  provider = "prisma-client-js"
-  previewFeatures = ["fullTextSearchPostgres"]
+  provider = "prisma-client"
+  output = "../generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 model Character {
@@ -50,6 +49,6 @@ model Data {
 model Session {
   id                String      @id
   sid               String      @unique
-  data              String      @db.Text 
+  data              String      
   expiresAt         DateTime
 }

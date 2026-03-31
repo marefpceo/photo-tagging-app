@@ -1,6 +1,6 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const indexController = require('../controllers/indexController');
+import indexController from '../controllers/indexController.js';
 
 // GET Image List
 router.get('/image_list', indexController.image_list_get);
@@ -26,4 +26,4 @@ router.get('/:gameImageId', indexController.game_image_get);
 // POST Start game with selected game image
 router.post('/:gameImageId', indexController.game_image_post);
 
-module.exports = router;
+export default router;
