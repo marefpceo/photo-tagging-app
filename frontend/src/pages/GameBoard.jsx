@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 import Canvas from '../components/Canvas';
 import DropMenu from '../components/DropMenu';
 import Button from '../components/Button';

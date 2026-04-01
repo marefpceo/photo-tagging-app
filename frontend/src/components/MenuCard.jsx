@@ -1,5 +1,5 @@
 import Button from './Button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 function MenuCard({
   image_location,
