@@ -1,5 +1,5 @@
 import Button from './Button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 function MenuCard({
   image_location,
@@ -30,7 +30,7 @@ function MenuCard({
 
   return (
     <div
-      className='max-w-1/5 m-0 rounded-sm border border-slate-100 bg-slate-100 pb-4 shadow-md shadow-slate-500'
+      className='m-0 max-w-1/5 rounded-sm border border-slate-100 bg-slate-100 pb-4 shadow-md shadow-slate-500'
       id={id}
     >
       <h3 className='p-2'>{title}</h3>

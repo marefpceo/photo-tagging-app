@@ -1,11 +1,10 @@
 import Button from './Button';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 function DialogModal({ message, showDialogModal, toggleDialogModal, onClick }) {
-  
   return (
     <div
-      className='absolute z-40 row-span-2 mt-2 h-full w-full flex-col justify-center bg-gray-200 bg-opacity-85'
+      className='bg-opacity-85 absolute z-40 row-span-2 mt-2 h-full w-full flex-col justify-center bg-gray-200'
       style={{ display: showDialogModal === true ? 'flex' : 'none' }}
     >
       <div className='relative z-50 mx-auto flex h-1/5 w-1/4 flex-col justify-evenly rounded-md border bg-white shadow-md shadow-gray-500'>
