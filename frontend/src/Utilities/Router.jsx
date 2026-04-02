@@ -3,11 +3,13 @@ import App from '../pages/App';
 import Home from '../pages/Home';
 import GameMenu from '../pages/GameMenu';
 import GameBoard from '../pages/GameBoard';
-// TODO Add custom error boundary
+import ErrorBoundary from '../components/ErrorBoundary';
+
 function Router() {
   const router = createBrowserRouter([
     {
       path: '/',
+      errorElement: <ErrorBoundary />,
       element: <App />,
       children: [
         { path: '/', element: <Home /> },
