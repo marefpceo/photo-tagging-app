@@ -6,12 +6,13 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "deploy": "wrangler pages deploy dist --project-name=photo-tagging-app",
+    "deploy": "wrangler pages deploy dist",
     "lint": "eslint .",
     "preview": "vite preview --port 5173",
     "prepare": "cd .. && husky frontend/.husky"
   },
   "dependencies": {
+    "@cloudflare/vite-plugin": "^1.31.0",
     "@tailwindcss/postcss": "^4.2.2",
     "@tailwindcss/vite": "^4.2.2",
     "react": "^19.2.4",
