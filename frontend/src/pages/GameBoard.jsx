@@ -151,7 +151,6 @@ function GameBoard() {
       const responseData = await response.json();
       if (response.ok) {
         console.log(responseData.message);
-        console.log(leaderList);
         setShowLeaderBoardModal(true);
         setShowEndGameModal(false);
       }
@@ -187,7 +186,6 @@ function GameBoard() {
   }
 
   function toggleLeaderBoard() {
-    console.log('Leader Board toggle');
     navigate('/', { replace: false });
   }
 
