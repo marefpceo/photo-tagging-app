@@ -2,7 +2,7 @@
 
 <center style='font-size:12pt'>
 
-<a href='/CHANGELOG.md'>Changelog</a> &nbsp;&nbsp; &bullet; &nbsp;&nbsp; <a href='https://main.photo-tagging-app.pages.dev'>Photo Tagging App - Live Link</a>
+<a href='/CHANGELOG.md'>Changelog</a> &nbsp;&nbsp; &bullet; &nbsp;&nbsp; <a href='https://339d8d51.photo-tagging-app.pages.dev/'>Photo Tagging App - Live Link</a>
 
 </center>
 
