@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "deploy": "wrangler pages deploy dist",
+    "deploy": "wrangler pages deploy dist --project-name=photo-tagging-app",
     "lint": "eslint .",
     "preview": "vite preview --port 5173",
     "prepare": "cd .. && husky frontend/.husky"
